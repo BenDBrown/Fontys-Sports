@@ -11,6 +11,9 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
+/.vscode/
+/ProjectSettings/Packages/com.unity.learn.iet-framework/
+/ProjectSettings/Packages/com.unity.testtools.codecoverage/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
