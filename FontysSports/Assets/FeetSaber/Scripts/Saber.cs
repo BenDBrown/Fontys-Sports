@@ -4,24 +4,31 @@ public class Saber : MonoBehaviour
 {
     public LayerMask layer;
     private Vector3 previousPos;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
-        
+        previousPos = transform.position;
     }
 
-    // Update is called once per frame
     void Update()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 1, layer)) 
-        { 
+
+        // Cast a ray forward from the saber's position
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 1f, layer))
+        {
+            Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.red); // Red when hitting
+
             if (Vector3.Angle(transform.position - previousPos, hit.transform.up) > 130)
             {
                 Destroy(hit.transform.gameObject);
             }
         }
+        else
+        {
+            Debug.DrawRay(transform.position, transform.forward * 1f, Color.green); // Green when missing
+        }
+
         previousPos = transform.position;
-        
     }
 }

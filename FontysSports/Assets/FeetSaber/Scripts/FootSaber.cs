@@ -2,26 +2,24 @@ using UnityEngine;
 
 public class FootSaber : MonoBehaviour
 {
-    public LayerMask layer;
-    private Vector3 previousPos;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public LayerMask layer; // Define which layers the raycast should hit
 
-    // Update is called once per frame
     void Update()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 1, layer)) 
-        { 
-            if (Vector3.Angle(transform.position - previousPos, hit.transform.up) > 130)
-            {
-                Destroy(hit.transform.gameObject);
-            }
+
+        // Cast a ray downward from the saber's position
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1f, layer))
+        {
+            Debug.DrawRay(transform.position, Vector3.down * hit.distance, Color.red);
+
+            // Destroy the object hit by the raycast
+            Destroy(hit.transform.gameObject);
         }
-        previousPos = transform.position;
-        
+        else
+        {
+            Debug.DrawRay(transform.position, Vector3.down * 1f, Color.green);
+        }
     }
 }
+

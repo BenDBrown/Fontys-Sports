@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 8281809385678549328}
   - component: {fileID: 2722381542723447834}
   - component: {fileID: 6402247944896063471}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: FootCubeRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}

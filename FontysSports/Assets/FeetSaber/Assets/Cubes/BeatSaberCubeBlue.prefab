@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6800551138601691360}
   - component: {fileID: 7401138141548527163}
   - component: {fileID: 1868050649326203294}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BeatSaberCubeBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 1125827349742239793}
   - component: {fileID: 8829644841856596395}
   - component: {fileID: 3541272348359598509}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
