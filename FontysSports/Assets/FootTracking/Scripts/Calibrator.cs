@@ -8,6 +8,11 @@ public class Calibrator : MonoBehaviour
     [SerializeField]
     private GameObject leftFoot;
 
+    private void Start()
+    {
+        Calibrate();
+    }
+
     public void Calibrate()
     {
         CalibrateFoot(rightFoot);
