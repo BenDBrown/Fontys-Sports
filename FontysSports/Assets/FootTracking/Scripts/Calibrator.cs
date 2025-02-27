@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Calibrator : MonoBehaviour
 {
@@ -10,11 +11,12 @@ public class Calibrator : MonoBehaviour
 
     private void Start()
     {
-        Calibrate();
+        StartCoroutine(Calibrate());
     }
 
-    public void Calibrate()
+    public IEnumerator Calibrate()
     {
+        yield return new WaitForSeconds(1);
         CalibrateFoot(rightFoot);
         CalibrateFoot(leftFoot);
     }
