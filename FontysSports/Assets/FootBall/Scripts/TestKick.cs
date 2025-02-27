@@ -17,11 +17,6 @@ public class TestKick : MonoBehaviour
 
     private Quaternion rotation;
 
-    private void Start()
-    {
-        Kick();
-    }
-
     private void Update()
     {
         if (kicking)
@@ -32,7 +27,7 @@ public class TestKick : MonoBehaviour
         }
     }
 
-    private void Kick()
+    public void Kick()
     {
         time = 0;
         transform.rotation = windBackRotation;
