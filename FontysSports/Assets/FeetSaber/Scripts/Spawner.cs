@@ -3,27 +3,22 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {   
-    //Here are the hand spawners
     public GameObject[] cubes;
     public Transform[] points;
     public float beat = (60/105)*2;
     private float timer;
 
-    //Here are the feet spawners
     public GameObject[] footPlates;
     public Transform[] footPoints;
     public float footBeat = (60/105)*2;
     private float footTimer;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    private bool isSpawning = false; // Added flag to control spawning
 
-    // Update is called once per frame
     void Update()
     {
+        if (!isSpawning) return; // Prevents spawning if not enabled
+
         if (timer > beat)
         {
             GameObject cube = Instantiate(cubes[Random.Range(0, cubes.Length)], points[Random.Range(0,points.Length)]);
@@ -41,6 +36,15 @@ public class Spawner : MonoBehaviour
         }
 
         footTimer += Time.deltaTime;
+    }
 
+    public void StartSpawning()
+    {
+        isSpawning = true;
+    }
+
+    public void StopSpawning()
+    {
+        isSpawning = false;
     }
 }

@@ -5,9 +5,13 @@ TagManager:
   serializedVersion: 3
   tags:
   - Anchor
+<<<<<<< Updated upstream
   - LeftFoot
   - RightFoot
   - Hand
+=======
+  - Cube
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
