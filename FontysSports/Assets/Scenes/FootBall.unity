@@ -1191,7 +1191,7 @@ MonoBehaviour:
   randomXPositions:
   - -2
   - 2
-  ballTrackingSpeedThreshold: 3
+  ballTrackingSpeedThreshold: 8
 --- !u!1 &1368111168
 GameObject:
   m_ObjectHideFlags: 0
