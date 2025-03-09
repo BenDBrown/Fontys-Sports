@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5971426697005255417}
   - component: {fileID: 7112074013221596985}
   - component: {fileID: 1333518828696044388}
-  m_Layer: 13
+  m_Layer: 3
   m_Name: BeatSaberCubeRed
   m_TagString: Cube
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 5974640519392239848}
   - component: {fileID: 2324402553868282024}
   - component: {fileID: 4126120796097874464}
-  m_Layer: 13
+  m_Layer: 3
   m_Name: Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
