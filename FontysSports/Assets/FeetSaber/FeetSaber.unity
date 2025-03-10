@@ -2972,6 +2972,7 @@ GameObject:
   - component: {fileID: 1154789984}
   - component: {fileID: 1154789983}
   - component: {fileID: 1154789982}
+  - component: {fileID: 1154789985}
   m_Layer: 0
   m_Name: SaberLeft
   m_TagString: Untagged
@@ -3068,6 +3069,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1154789980}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1154789985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154789980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdd161e0c3af2874da2608b228cf8997, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &1156207109
 GameObject:
   m_ObjectHideFlags: 0
@@ -4709,6 +4725,7 @@ GameObject:
   - component: {fileID: 2112804043}
   - component: {fileID: 2112804042}
   - component: {fileID: 2112804041}
+  - component: {fileID: 2112804044}
   m_Layer: 0
   m_Name: SaberRight
   m_TagString: Untagged
@@ -4805,6 +4822,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2112804039}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2112804044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2112804039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdd161e0c3af2874da2608b228cf8997, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1 &2113959331
 GameObject:
   m_ObjectHideFlags: 0

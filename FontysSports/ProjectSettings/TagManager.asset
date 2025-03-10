@@ -3,12 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: 
-  -Anchor
-  -LeftFoot
-  -RightFoot
-  - Hand
+  tags:
   - Cube
+  - Anchor
   layers:
   - Default
   - TransparentFX
@@ -19,8 +16,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - RedBlock
+  - BlueBlock
   - 
   - 
   - 
