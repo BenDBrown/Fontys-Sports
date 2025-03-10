@@ -7,7 +7,7 @@ public class Football : MonoBehaviour
 
     public UnityEvent shotEnded;
 
-    public UnityEvent scored;
+    public UnityEvent<float> scored;
 
     [SerializeField]
     BoxCollider goalCol;
@@ -34,9 +34,9 @@ public class Football : MonoBehaviour
 
     private void OnTriggerEnter(Collider trigger)
     {
-        if (trigger.tag != "Goal") return;
+        if (trigger.tag != "Goal" || (!IsBeingShot)) return;
         IsBeingShot = false;
-        scored?.Invoke();
+        scored?.Invoke(rb.linearVelocity.magnitude);
     }
 
     private void OnCollisionEnter(Collision collision)

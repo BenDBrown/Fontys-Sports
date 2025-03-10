@@ -1,12 +1,22 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using TMPro;
+using System.Runtime.InteropServices;
+using System;
 
 public class ScoreTracker : MonoBehaviour
 {
     private static int score = 0;
 
+    private static float fastestGoalSpeed = 0;
+
     public UnityEvent RoundEnded;
+
+    [SerializeField] private TextMeshProUGUI goalAmountDisplay;
+    [SerializeField] private TextMeshProUGUI missAmountDisplay;
+    [SerializeField] private TextMeshProUGUI currentGoalSpeedDisplay;
+    [SerializeField] private TextMeshProUGUI fastestGoalSpeedDisplay;
 
     [SerializeField] private bool resetOnLoad = false;
 
@@ -22,25 +32,22 @@ public class ScoreTracker : MonoBehaviour
 
     private Quaternion ballStartRot;
 
-    public void IncrementScore()
+    public void OnScore(float speed)
     {
         score++;
         shotNr++;
-        if (shotNr >= shotsTillEnd)
-        {
-            RoundEnded?.Invoke();
-            Debug.Log("round ended");
-        }
+        if(speed > fastestGoalSpeed) fastestGoalSpeed = speed;
+        UpdateUi(speed);
+        if (shotNr >= shotsTillEnd) RoundEnded?.Invoke();
         StartCoroutine(ResetBall());
-        Debug.Log($"shot:{shotNr}\nscore:{score}");
     }
 
     public void NextShot()
     {
         shotNr++;
+        UpdateUi();
         if (shotNr >= shotsTillEnd) RoundEnded?.Invoke();
         StartCoroutine(ResetBall());
-        Debug.Log($"shot:{shotNr}\nscore:{score}");
     }
 
     private void Start()
@@ -49,6 +56,16 @@ public class ScoreTracker : MonoBehaviour
         ballStartPos = ball.transform.position;
         ballStartRot = ball.transform.rotation;
     }
+
+    private void UpdateUi(float? currentGoalSpeed = null)
+    {
+        goalAmountDisplay.text = score.ToString();
+        missAmountDisplay.text = (shotNr - score).ToString();
+        if(currentGoalSpeed != null) currentGoalSpeedDisplay.text = GetRoundedKmPerHourSpeed((float)currentGoalSpeed).ToString();
+        fastestGoalSpeedDisplay.text = GetRoundedKmPerHourSpeed(fastestGoalSpeed).ToString();
+    }
+
+    private int GetRoundedKmPerHourSpeed(float speed) => (int)(speed * 3.6f);
 
     private IEnumerator ResetBall()
     { 
