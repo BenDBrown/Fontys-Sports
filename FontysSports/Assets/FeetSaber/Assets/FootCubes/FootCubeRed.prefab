@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8932709695978700502}
   - component: {fileID: 1588696307343242938}
   - component: {fileID: 1043785111672722384}
-  m_Layer: 13
+  m_Layer: 3
   m_Name: Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 8281809385678549328}
   - component: {fileID: 2722381542723447834}
   - component: {fileID: 6402247944896063471}
-  m_Layer: 13
+  m_Layer: 3
   m_Name: FootCubeRed
   m_TagString: Cube
   m_Icon: {fileID: 0}

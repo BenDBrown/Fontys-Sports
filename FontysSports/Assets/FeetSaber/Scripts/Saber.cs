@@ -15,7 +15,7 @@ public class Saber : MonoBehaviour
         RaycastHit hit;
 
         // Cast a ray forward from the saber's position
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 1f, layer))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 5f, layer))
         {
             Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.red); // Red when hitting
 
