@@ -5,9 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Anchor
-  - LeftFoot
-  - RightFoot
   - Hand
+  - Foot
+  - Goal
   layers:
   - Default
   - TransparentFX
