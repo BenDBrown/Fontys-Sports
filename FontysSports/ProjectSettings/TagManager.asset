@@ -4,6 +4,7 @@
 TagManager:
   serializedVersion: 3
   tags:
+  - Cube
   - Anchor
   - Hand
   - Foot
@@ -12,14 +13,14 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Blocks
   - Water
   - UI
   - 
   - 
   - 
-  - 
-  - 
+  - RedBlock
+  - BlueBlock
   - 
   - 
   - 
