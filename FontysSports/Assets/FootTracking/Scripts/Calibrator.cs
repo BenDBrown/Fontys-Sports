@@ -1,8 +1,11 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
 
 public class Calibrator : MonoBehaviour
 {
+    public UnityEvent calibrated;
+
     [SerializeField]
     private GameObject rightFoot;
 
@@ -19,6 +22,7 @@ public class Calibrator : MonoBehaviour
         yield return new WaitForSeconds(1);
         CalibrateFoot(rightFoot);
         CalibrateFoot(leftFoot);
+        calibrated.Invoke();
     }
 
     private void CalibrateFoot(GameObject foot)
