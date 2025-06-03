@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Cube
   - Anchor
+  - Hand
+  - Foot
+  - Goal
   layers:
   - Default
   - TransparentFX
