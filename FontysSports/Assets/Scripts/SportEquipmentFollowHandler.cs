@@ -13,6 +13,8 @@ public class SportEquipmentFollowHandler : MonoBehaviour
     [SerializeField] private Transform rightControllerFollower;
 
     private Rigidbody sportEquipmentRigid;
+    private DisableColliders disableColliders;
+    private bool swapping = false;
 
     private void OnEnable()
     {
@@ -22,21 +24,32 @@ public class SportEquipmentFollowHandler : MonoBehaviour
 
     private void SwitchController(InputAction.CallbackContext context) => rightControllerActive = !rightControllerActive;
 
-    private void Start() => sportEquipmentRigid = sportEquipment.GetComponent<Rigidbody>();
+    private void Start()
+    {
+        sportEquipmentRigid = sportEquipment.GetComponent<Rigidbody>();
+        disableColliders = sportEquipment.GetComponent<DisableColliders>();
+    }
 
     private void FixedUpdate()
     {
-        if (!rightControllerActive)
+        if (!rightControllerActive) MoveSportEquipment(leftControllerFollower);
+        else MoveSportEquipment(rightControllerFollower);
+    }
+
+    private void MoveSportEquipment(Transform follower)
+    {
+        if (sportEquipment.transform.parent != follower)
         {
-            if (sportEquipment.transform.parent != leftControllerFollower) sportEquipment.transform.parent = leftControllerFollower;
-            sportEquipmentRigid.MovePosition(leftControllerFollower.position);
-            sportEquipmentRigid.MoveRotation(leftControllerFollower.rotation);
+            swapping = true;
+            disableColliders.Disable();
+            sportEquipment.transform.parent = follower;
         }
-        else
+        sportEquipmentRigid.MovePosition(follower.position);
+        sportEquipmentRigid.MoveRotation(follower.rotation);
+        if (swapping)
         {
-            if (sportEquipment.transform.parent != rightControllerFollower) sportEquipment.transform.parent = rightControllerFollower;
-            sportEquipmentRigid.MovePosition(rightControllerFollower.position);
-            sportEquipmentRigid.MoveRotation(rightControllerFollower.rotation);
+            StartCoroutine(disableColliders.Enable());
+            swapping = false;
         }
     }
 }
