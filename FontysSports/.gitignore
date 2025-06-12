@@ -4,8 +4,11 @@
 #
 /[Ll]ibrary/
 /[Tt]emp/
-/[Tt]est/
-/[Tt]ests/
+/[Aa]ssets/[Tt]est/
+/[Aa]ssets/[Tt]ests/
+/.vsconfig
+/[Aa]ssets/[Tt]est.meta
+/[Aa]ssets/[Tt]ests.meta
 /[Oo]bj/
 /[Bb]uild/
 /[Bb]uilds/
@@ -14,8 +17,6 @@
 /.vscode/
 /ProjectSettings/Packages/com.unity.testtools.codecoverage/
 /ProjectSettings/Packages/com.unity.learn.iet-framework/
-/[Tt]est.meta
-/[Tt]ests.meta
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
