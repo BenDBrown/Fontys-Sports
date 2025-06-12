@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.XR.Interaction.Toolkit.Inputs;
 
 public class SportEquipmentFollowHandler : MonoBehaviour
 {
@@ -30,11 +28,13 @@ public class SportEquipmentFollowHandler : MonoBehaviour
     {
         if (!rightControllerActive)
         {
+            if (sportEquipment.transform.parent != leftControllerFollower) sportEquipment.transform.parent = leftControllerFollower;
             sportEquipmentRigid.MovePosition(leftControllerFollower.position);
             sportEquipmentRigid.MoveRotation(leftControllerFollower.rotation);
         }
         else
         {
+            if (sportEquipment.transform.parent != rightControllerFollower) sportEquipment.transform.parent = rightControllerFollower;
             sportEquipmentRigid.MovePosition(rightControllerFollower.position);
             sportEquipmentRigid.MoveRotation(rightControllerFollower.rotation);
         }
