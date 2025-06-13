@@ -120,6 +120,59 @@ Transform:
   - {fileID: 6346786317375910295}
   m_Father: {fileID: 3246605013919947533}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2258809982741470561
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1240956170613652715}
+  - component: {fileID: 3133467826029367865}
+  m_Layer: 11
+  m_Name: ClubHeadCollider_Bigly
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1240956170613652715
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2258809982741470561}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: -0.043619405, w: 0.9990483}
+  m_LocalPosition: {x: -0.0199, y: 0.0362, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3361901020058217667}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -5}
+--- !u!65 &3133467826029367865
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2258809982741470561}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.2, y: 0.15, z: 0.025}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2266253259498094296
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,6 +268,8 @@ GameObject:
   m_Component:
   - component: {fileID: 494430774154785904}
   - component: {fileID: 1160179721043306795}
+  - component: {fileID: 5272526694656982268}
+  - component: {fileID: 7490445262917527977}
   m_Layer: 0
   m_Name: GolfClub
   m_TagString: Untagged
@@ -264,7 +319,37 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 2
+  m_CollisionDetection: 1
+--- !u!114 &5272526694656982268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3022474476115163117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d40750ac82f1d4489400849d3138abb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliders:
+  - {fileID: 8804410172647766083}
+  - {fileID: 1320377027560078709}
+--- !u!114 &7490445262917527977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3022474476115163117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f9457f6b9c70354497728787b2a0c2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedThreshold: 0.01
+  clubHead: {fileID: 3361901020058217667}
+  bigCollider: {fileID: 3133467826029367865}
 --- !u!1 &3529661920208367431
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,7 +686,7 @@ Transform:
   m_GameObject: {fileID: 6818701253022897547}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: -0.06, z: -0.104}
+  m_LocalPosition: {x: 0, y: -0.09, z: -0.179}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -730,6 +815,7 @@ Transform:
   - {fileID: 1256870360598237993}
   - {fileID: 3251466499789644539}
   - {fileID: 4997368762830101484}
+  - {fileID: 1240956170613652715}
   m_Father: {fileID: 3246605013919947533}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &7942981582175359424

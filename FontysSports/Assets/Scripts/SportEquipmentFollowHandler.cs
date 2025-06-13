@@ -1,32 +1,55 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.XR.Interaction.Toolkit.Inputs;
 
 public class SportEquipmentFollowHandler : MonoBehaviour
 {
     [SerializeField] private bool rightControllerActive = true;
-    [SerializeField] private Transform leftController;
-    [SerializeField] private Transform rightController;
     [SerializeField] private GameObject sportEquipment;
+    [Space(10)]
+    [SerializeField] private InputActionReference leftIAR;
+    [SerializeField] private Transform leftControllerFollower;
+    [Space(10)]
+    [SerializeField] private InputActionReference rightIAR;
+    [SerializeField] private Transform rightControllerFollower;
 
     private Rigidbody sportEquipmentRigid;
+    private DisableColliders disableColliders;
+    private bool swapping = false;
+
+    private void OnEnable()
+    {
+        leftIAR.action.performed += SwitchController;
+        rightIAR.action.performed += SwitchController;
+    }
+
+    private void SwitchController(InputAction.CallbackContext context) => rightControllerActive = !rightControllerActive;
 
     private void Start()
     {
         sportEquipmentRigid = sportEquipment.GetComponent<Rigidbody>();
+        disableColliders = sportEquipment.GetComponent<DisableColliders>();
     }
 
     private void FixedUpdate()
     {
-        if (!rightControllerActive)
+        if (!rightControllerActive) MoveSportEquipment(leftControllerFollower);
+        else MoveSportEquipment(rightControllerFollower);
+    }
+
+    private void MoveSportEquipment(Transform follower)
+    {
+        if (sportEquipment.transform.parent != follower)
         {
-            sportEquipmentRigid.MovePosition(leftController.position);
-            sportEquipmentRigid.MoveRotation(leftController.rotation);
+            swapping = true;
+            disableColliders.Disable();
+            sportEquipment.transform.parent = follower;
         }
-        else
+        sportEquipmentRigid.MovePosition(follower.position);
+        sportEquipmentRigid.MoveRotation(follower.rotation);
+        if (swapping)
         {
-            sportEquipmentRigid.MovePosition(rightController.position);
-            sportEquipmentRigid.MoveRotation(rightController.rotation);
+            StartCoroutine(disableColliders.Enable());
+            swapping = false;
         }
     }
 }
