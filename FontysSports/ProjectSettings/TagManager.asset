@@ -9,6 +9,12 @@ TagManager:
   - Hand
   - Foot
   - Goal
+  - RightFoot
+  - LeftFoot
+  - Table1
+  - Table2
+  - Wall
+  - Boundary
   layers:
   - Default
   - TransparentFX
