@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5733218228510966347}
   - component: {fileID: 1844734281059036093}
   - component: {fileID: 5405036967404252621}
+  - component: {fileID: 2191991212898864191}
   - component: {fileID: 4625925367595127460}
   - component: {fileID: 2375069548542861240}
   m_Layer: 0
@@ -88,6 +89,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2191991212898864191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7527049828940666173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e960b539cfd8b9f47b1bcb936cabf846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GolfBallHit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!135 &4625925367595127460
 SphereCollider:
   m_ObjectHideFlags: 0
