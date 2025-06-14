@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,12 +9,15 @@ public class GolfPlayerManager : MonoBehaviour
 {
     public UnityEvent<int> PlayerScoredWithHits = new();
 
-    public UnityEvent<GolfPlayer[]> LevelFinished = new();
+    public UnityEvent<GolfPlayerScoreInfo[]> LevelFinished = new();
 
-    public UnityEvent<GolfPlayer[]> GameFinished = new();
+    public UnityEvent<GolfPlayerScoreInfo[]> GameFinished = new();
 
     [SerializeField]
     private Transform golfBallSpawnLocation; // assumed to be the same between levels, move the levels instead of wanting multiple spawn points
+
+    [SerializeField]
+    private Transform golfBall;
 
     [SerializeField]
     private List<GameObject> levels = new(); // first item in list will be first level 2nd item will be 2nd lvl etc
@@ -34,7 +38,11 @@ public class GolfPlayerManager : MonoBehaviour
         currentLevelIndex = 0;
         currentPlayerIndex = 0;
         currentLevel.SetActive(true);
-        CurrentPlayer.SetGolfClubActive(true);
+        foreach (GolfPlayer player in Players)
+        { 
+            player.ResetTotalHits();
+        }
+        CurrentPlayer.StartTurn();
     }
 
     public void PlayerScored()
@@ -47,14 +55,15 @@ public class GolfPlayerManager : MonoBehaviour
 
     private void NextTurn()
     {
-        CurrentPlayer.SetGolfClubActive(false);
+        CurrentPlayer.EndTurn();
         if (currentPlayerIndex + 1 >= Players.Length)
         {
             currentPlayerIndex = 0;
             NextLevel();
         }
         else currentPlayerIndex++;
-        CurrentPlayer.SetGolfClubActive(true);
+        CurrentPlayer.StartTurn();
+        golfBall.SetWorldPose(golfBallSpawnLocation.GetWorldPose());
     }
 
     private void NextLevel()
@@ -62,13 +71,32 @@ public class GolfPlayerManager : MonoBehaviour
         currentLevel.SetActive(false);
         if (currentLevelIndex + 1 >= levels.Count)
         {
-            GameFinished?.Invoke(CloningUtils.GetCloneOf<GolfPlayer>(Players));
+            GameFinished?.Invoke(GetPlayerScores());
         }
         else 
         {
             currentLevelIndex++;
-            LevelFinished?.Invoke(CloningUtils.GetCloneOf<GolfPlayer>(Players));
+            LevelFinished?.Invoke(GetPlayerScores());
+            ResetCurrentHits();
             currentLevel.SetActive(true);
         }
+    }
+
+    private void ResetCurrentHits()
+    {
+        foreach (GolfPlayer golfPlayer in Players)
+        { 
+            golfPlayer.ResetCurrentHits();
+        }
+    }
+
+    private GolfPlayerScoreInfo[] GetPlayerScores()
+    {
+        List<GolfPlayerScoreInfo> playerScores = new();
+        foreach (GolfPlayer golfPlayer in Players)
+        {
+            playerScores.Add(golfPlayer.PlayerScoreInfo);
+        }
+        return playerScores.ToArray();
     }
 }

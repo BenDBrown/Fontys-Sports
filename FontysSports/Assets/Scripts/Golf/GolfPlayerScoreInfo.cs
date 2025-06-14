@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public struct PlayerScoreInfo
+public struct GolfPlayerScoreInfo
 {
     public string Name { get; private set; }
     
@@ -8,7 +8,7 @@ public struct PlayerScoreInfo
 
     public int CurrentHits { get; private set; }
 
-    public PlayerScoreInfo(string name, int totalHits, int currentHits)
+    public GolfPlayerScoreInfo(string name, int totalHits, int currentHits)
     { 
         Name = name;
         TotalHits = totalHits;

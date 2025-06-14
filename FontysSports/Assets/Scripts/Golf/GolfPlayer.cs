@@ -1,23 +1,23 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class GolfPlayer : ICloneable
+public class GolfPlayer : MonoBehaviour
 {
+    public UnityEvent TurnStarted = new();
+
+    public UnityEvent TurnEnded = new();
+
+    [SerializeField]
+    private GameObject golfClub;
+
     public string Name { get; protected set; }
 
     public int TotalHits { get; private set; } = 0;
 
     public int CurrentHits { get; private set; } = 0;
 
-    private GameObject golfClub;
-
-    public GolfPlayer(string name, GameObject golfClub)
-    {
-        Name = name;
-        this.golfClub = golfClub;
-        TotalHits = 0;
-        CurrentHits = 0;
-    }
+    public GolfPlayerScoreInfo PlayerScoreInfo => new(Name, TotalHits, CurrentHits);
 
     public void IncrementCurrentHits()
     {
@@ -25,7 +25,27 @@ public class GolfPlayer : ICloneable
         CurrentHits++;
     }
 
-    public void SetGolfClubActive(bool active)
+    public void StartTurn()
+    {
+        SetGolfClubActive(true);
+        TurnStarted?.Invoke();
+    }
+
+    public void EndTurn()
+    {
+        SetGolfClubActive(false);
+        TurnEnded?.Invoke();    
+    }
+
+    public void ResetCurrentHits() => CurrentHits = 0;
+
+    public void ResetTotalHits()
+    { 
+        CurrentHits = 0;
+        TotalHits = 0;
+    }
+
+    private void SetGolfClubActive(bool active)
     {
         if (golfClub == null) Debug.LogWarning("tried affecting golf club which was null");
         foreach (Component comp in golfClub.GetComponentsInChildren(typeof(Component)))
@@ -38,12 +58,5 @@ public class GolfPlayer : ICloneable
                 mb.enabled = active;
             }
         }
-    }
-
-    public void FinishTurn() => CurrentHits = 0;
-
-    public virtual object Clone()
-    {
-        return new GolfPlayer(this.Name, null);
     }
 }
