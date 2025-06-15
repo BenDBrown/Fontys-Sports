@@ -21,6 +21,7 @@ public class GolfPlayer : MonoBehaviour
 
     public void IncrementCurrentHits()
     {
+        if(CurrentHits >= 7) return;
         TotalHits++;
         CurrentHits++;
     }
@@ -47,7 +48,12 @@ public class GolfPlayer : MonoBehaviour
 
     private void SetGolfClubActive(bool active)
     {
-        if (golfClub == null) Debug.LogWarning("tried affecting golf club which was null");
+        if (golfClub == null)
+        {
+            Debug.LogWarning("tried affecting golf club which was null");
+            return;
+        }
+        golfClub.SetActive(active);
         foreach (Component comp in golfClub.GetComponentsInChildren(typeof(Component)))
         {
             if (comp is Collider col) col.enabled = active;

@@ -43,6 +43,7 @@ public class GolfPlayerManager : MonoBehaviour
             player.ResetTotalHits();
         }
         CurrentPlayer.StartTurn();
+        golfBall.SetWorldPose(golfBallSpawnLocation.GetWorldPose());
     }
 
     public void PlayerScored()
