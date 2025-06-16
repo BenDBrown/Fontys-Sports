@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7657491003887507451}
   - component: {fileID: 8619135999567037100}
   - component: {fileID: 5190972976438236574}
+  - component: {fileID: 1970848842578427444}
   m_Layer: 0
   m_Name: PingPongBall
   m_TagString: Untagged
@@ -259,3 +260,23 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 0
+--- !u!114 &1970848842578427444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7394773309366676874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dfd4c503bb79464797277a0d3598de7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scored:
+    m_PersistentCalls:
+      m_Calls: []
+  reset:
+    m_PersistentCalls:
+      m_Calls: []
+  Table1: {fileID: 0}
+  Net: {fileID: 0}
