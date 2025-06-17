@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class SportEquipmentFollowHandler : MonoBehaviour
 {
+    [SerializeField] private bool xrRigSimActive = false;
     [SerializeField] private bool rightControllerActive = true;
     [SerializeField] private GameObject sportEquipment;
     [Space(10)]
@@ -26,6 +27,7 @@ public class SportEquipmentFollowHandler : MonoBehaviour
 
     private void Start()
     {
+        if (xrRigSimActive) transform.position = transform.parent.GetChild(0).position;
         sportEquipmentRigid = sportEquipment.GetComponent<Rigidbody>();
         disableColliders = sportEquipment.GetComponent<DisableColliders>();
     }
