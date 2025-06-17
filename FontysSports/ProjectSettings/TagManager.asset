@@ -11,6 +11,10 @@ TagManager:
   - Goal
   - Ball
   - GolfClub
+  - Table1
+  - Table2
+  - Wall
+  - Boundary
   layers:
   - Default
   - TransparentFX
