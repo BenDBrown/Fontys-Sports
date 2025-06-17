@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FeetSaber/FeetSaber.unity
     guid: 8561abdff134e8c49bb3046e6f016ee4
+  - enabled: 1
+    path: Assets/Scenes/Ping Pong/PingPongLevel.unity
+    guid: 7e17de5f44598944eb13719e7935b0f2
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dc5a169419fa04987b057f65238cf3ba, type: 2}
