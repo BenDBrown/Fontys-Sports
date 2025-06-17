@@ -580,6 +580,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   golfClub: {fileID: 1702209499}
+  name: You
 --- !u!4 &1341363266
 Transform:
   m_ObjectHideFlags: 0
@@ -744,6 +745,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2191991212898864191, guid: 6e10616ddbc03794aa758c32fd9dc84b, type: 3}
+      propertyPath: GolfBallHit.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191991212898864191, guid: 6e10616ddbc03794aa758c32fd9dc84b, type: 3}
+      propertyPath: GolfBallHit.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191991212898864191, guid: 6e10616ddbc03794aa758c32fd9dc84b, type: 3}
+      propertyPath: GolfBallHit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3913689634328350544}
+    - target: {fileID: 2191991212898864191, guid: 6e10616ddbc03794aa758c32fd9dc84b, type: 3}
+      propertyPath: GolfBallHit.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191991212898864191, guid: 6e10616ddbc03794aa758c32fd9dc84b, type: 3}
+      propertyPath: GolfBallHit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: IncrementGolfHits
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191991212898864191, guid: 6e10616ddbc03794aa758c32fd9dc84b, type: 3}
+      propertyPath: GolfBallHit.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GolfPlayerManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191991212898864191, guid: 6e10616ddbc03794aa758c32fd9dc84b, type: 3}
+      propertyPath: GolfBallHit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5733218228510966347, guid: 6e10616ddbc03794aa758c32fd9dc84b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1336,6 +1365,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 863721170999346082, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
+      propertyPath: Scored.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 863721170999346082, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
+      propertyPath: Scored.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 863721170999346082, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
+      propertyPath: Scored.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3913689634328350544}
+    - target: {fileID: 863721170999346082, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
+      propertyPath: Scored.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 863721170999346082, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
+      propertyPath: Scored.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayerScored
+      objectReference: {fileID: 0}
+    - target: {fileID: 863721170999346082, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
+      propertyPath: Scored.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GolfPlayerManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 863721170999346082, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
+      propertyPath: Scored.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 919432614129864816, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -11,7 +11,10 @@ public class GolfPlayer : MonoBehaviour
     [SerializeField]
     private GameObject golfClub;
 
-    public string Name { get; protected set; }
+    [SerializeField]
+    private string name;
+
+    public string Name => name;
 
     public int TotalHits { get; private set; } = 0;
 
