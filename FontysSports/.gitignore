@@ -4,9 +4,14 @@
 #
 /[Ll]ibrary/
 /[Tt]emp/
+/.utmp/
+/Assets/Resources/
+/Assets/Resources.meta
 /[Aa]ssets/[Tt]est/
 /[Aa]ssets/[Tt]ests/
 /.vsconfig
+/ProjectSettings/EditorBuildSettings.asset
+/ProjectSettings/ShaderGraphSettings.asset
 /[Aa]ssets/[Tt]est.meta
 /[Aa]ssets/[Tt]ests.meta
 /[Oo]bj/
