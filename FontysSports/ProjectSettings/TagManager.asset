@@ -9,6 +9,12 @@ TagManager:
   - Hand
   - Foot
   - Goal
+  - Ball
+  - GolfClub
+  - Table1
+  - Table2
+  - Wall
+  - Boundary
   layers:
   - Default
   - TransparentFX
@@ -21,8 +27,8 @@ TagManager:
   - 
   - RedBlock
   - BlueBlock
-  - 
-  - 
+  - GolfClub
+  - GolfBall
   - 
   - 
   - 
