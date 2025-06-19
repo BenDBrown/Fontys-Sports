@@ -70,7 +70,7 @@ public class BallController : MonoBehaviour
         {
             client = new TcpClient(ipAddress, port);
             stream = client.GetStream();
-            Debug.Log("✅ Connected to Arduino");
+            Debug.Log("Connected to Arduino");
 
             byte[] buffer = new byte[1024];
 
@@ -85,7 +85,7 @@ public class BallController : MonoBehaviour
                 int bytesRead = stream.Read(buffer, 0, buffer.Length);
                 if (bytesRead == 0)
                 {
-                    Debug.LogWarning("⚠️ Server closed connection.");
+                    Debug.LogWarning("Server closed connection.");
                     break;
                 }
 
@@ -109,7 +109,7 @@ public class BallController : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError("❌ TCP Error: " + e.Message);
+            Debug.LogError("TCP Error: " + e.Message);
         }
         finally
         {
@@ -128,7 +128,7 @@ public class BallController : MonoBehaviour
         string[] parts = line.Split(',');
         if (parts.Length != 6)
         {
-            Debug.LogWarning($"⚠️ Incorrect data length: expected 6, got {parts.Length}");
+            Debug.LogWarning($"Incorrect data length: expected 6, got {parts.Length}");
             return;
         }
 
@@ -144,18 +144,18 @@ public class BallController : MonoBehaviour
                     initialRoll = parsedRoll;
                     initialPitch = parsedPitch;
                     isCalibrated = true;
-                    Debug.Log($"🎯 Calibrated: initialRoll={initialRoll}, initialPitch={initialPitch}");
+                    Debug.Log($"Calibrated: initialRoll={initialRoll}, initialPitch={initialPitch}");
                 }
 
                 roll = parsedRoll;
                 pitch = parsedPitch;
             }
 
-            Debug.Log($"📡 Received tilt → Roll: {parsedRoll}, Pitch: {parsedPitch}");
+            Debug.Log($"Received tilt → Roll: {parsedRoll}, Pitch: {parsedPitch}");
         }
         else
         {
-            Debug.LogWarning("⚠️ Failed to parse roll/pitch as floats");
+            Debug.LogWarning("Failed to parse roll/pitch as floats");
         }
     }
 
