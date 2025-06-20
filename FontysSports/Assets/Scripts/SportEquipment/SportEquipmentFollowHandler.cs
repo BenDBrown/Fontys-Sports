@@ -41,7 +41,7 @@ public class SportEquipmentFollowHandler : MonoBehaviour
     {
         if (sportEquipment.transform.parent != follower)
         {
-            colliderHandler.Disable();
+            colliderHandler.DisableColliders();
             sportEquipment.transform.parent = follower;
         }
         sportEquipmentRigid.MovePosition(follower.position);

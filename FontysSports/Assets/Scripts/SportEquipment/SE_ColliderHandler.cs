@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class SE_ColliderHandler : MonoBehaviour
 {
-    [SerializeField] private Collider colliderZPositive;
-    [SerializeField] private Collider colliderZNegative;
+    [SerializeField] private BoxCollider colliderZPositive;
+    [SerializeField] private BoxCollider colliderZNegative;
 
-    public void Disable()
-    {
-        colliderZPositive.enabled = false;
-        colliderZNegative.enabled = false;
-    }
-
-    public void SwitchCollider(bool zPositiveTriggered)
+    public void EnableCollider(bool zPositiveTriggered)
     {
         colliderZPositive.enabled = !zPositiveTriggered;
         colliderZNegative.enabled = zPositiveTriggered;
+    }
+
+    public void DisableColliders()
+    {
+        colliderZPositive.enabled = false;
+        colliderZNegative.enabled = false;
     }
 }
