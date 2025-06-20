@@ -14,8 +14,7 @@ public class SportEquipmentFollowHandler : MonoBehaviour
     [SerializeField] private Transform rightControllerFollower;
 
     private Rigidbody sportEquipmentRigid;
-    private DisableColliders disableColliders;
-    private bool swapping = false;
+    private SE_ColliderHandler colliderHandler;
 
     private void OnEnable()
     {
@@ -29,7 +28,7 @@ public class SportEquipmentFollowHandler : MonoBehaviour
     {
         if (xrRigSimActive) transform.position = transform.parent.GetChild(0).position;
         sportEquipmentRigid = sportEquipment.GetComponent<Rigidbody>();
-        disableColliders = sportEquipment.GetComponent<DisableColliders>();
+        colliderHandler = sportEquipment.GetComponent<SE_ColliderHandler>();
     }
 
     private void FixedUpdate()
@@ -42,16 +41,10 @@ public class SportEquipmentFollowHandler : MonoBehaviour
     {
         if (sportEquipment.transform.parent != follower)
         {
-            swapping = true;
-            disableColliders.Disable();
+            colliderHandler.Disable();
             sportEquipment.transform.parent = follower;
         }
         sportEquipmentRigid.MovePosition(follower.position);
         sportEquipmentRigid.MoveRotation(follower.rotation);
-        if (swapping)
-        {
-            StartCoroutine(disableColliders.Enable());
-            swapping = false;
-        }
     }
 }
