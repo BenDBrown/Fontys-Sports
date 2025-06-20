@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEditor;
 using UnityEngine.Events;
 using System.Collections.Generic;
@@ -16,6 +17,8 @@ public class RadioButton : MonoBehaviour
     private Transform parentPanel;         // Parent UI Panel to hold the radio buttons
     [SerializeField]
     private AudioSource audioSource;       // Reference to the AudioSource to play songs
+    [SerializeField]
+    private string fileName;
     [SerializeField]
     private Canvas canvas;
     [SerializeField]
@@ -42,20 +45,23 @@ public class RadioButton : MonoBehaviour
             AudioClip clip = songClips[index];
             string fileName = clip.name;
 
+            Debug.Log(fileName);
+
             CreateRadioButton(fileName, index, clip);
         }
     }
 
-    void CreateRadioButton(string fileName, int index, AudioClip clip)
+    void CreateRadioButton(string songName, int index, AudioClip clip)
     {
         // Instantiate the radio button prefab
         GameObject radioButton = Instantiate(radioButtonPrefab, parentPanel);
 
         // Set the label of the radio button
-        Text buttonText = radioButton.GetComponentInChildren<Text>();
+        TextMeshProUGUI buttonText = radioButton.GetComponentInChildren<TextMeshProUGUI>();
         if (buttonText != null)
         {
-            buttonText.text = fileName; // Set the name of the file as the button label
+            Debug.LogError("Button text component not found in the radio button prefab.");
+            buttonText.text = songName; // Set the name of the file as the button label
         }
 
         // Get the Toggle component and assign the listener
