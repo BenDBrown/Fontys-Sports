@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation;
 
 public class GolfPlayerManager : MonoBehaviour
@@ -35,30 +34,26 @@ public class GolfPlayerManager : MonoBehaviour
 
     private GameObject currentLevel => levelArray[currentLevelIndex].Level;
 
+    // these two readonly floats decide at what point the golfball is considered to be done moving
+    private readonly float stationaryVelocityThreshold = 0.01f;
+
+    private readonly float stationaryForceThreshold = 0.01f;
+
     private int currentPlayerIndex = 0;
 
     private int currentLevelIndex = 0;
+
+    private float initialGolfballHeight = 0;
     
     private bool checkingGolfBallSpeed = false;
+
 
     private void Update()
     {
         if (!checkingGolfBallSpeed) return;
-        if (golfBall.linearVelocity.magnitude <= 0.01f)
+        if (golfBall.linearVelocity.magnitude <= stationaryVelocityThreshold && golfBall.GetAccumulatedForce().magnitude <= stationaryForceThreshold)
         {
-            InputDevice device = InputDevices.GetDeviceAtXRNode(XRNode.Head);
-            if (!device.TryGetFeatureValue(CommonUsages.devicePosition, out Vector3 devicePos))
-            {
-                Debug.LogWarning("could not get device postion when teleporting player");
-                checkingGolfBallSpeed = false;
-                return;
-            }
-            TeleportRequest request = new()
-            {
-                destinationPosition = new(golfBall.position.x, devicePos.y, golfBall.position.z),
-                matchOrientation = MatchOrientation.None
-            };
-            playerTeleportationProvider.QueueTeleportRequest(request);
+            PrepPlayerForNextHit();
             checkingGolfBallSpeed = false;
         }
     }
@@ -100,9 +95,12 @@ public class GolfPlayerManager : MonoBehaviour
             currentPlayerIndex = 0;
             NextLevel();
         }
-        else currentPlayerIndex++;
+        else
+        {
+            currentPlayerIndex++;
+            ResetBallLocation();
+        }
         CurrentPlayer.StartTurn();
-        ResetBallLocation();
     }
 
     private void NextLevel()
@@ -118,6 +116,8 @@ public class GolfPlayerManager : MonoBehaviour
             LevelFinished?.Invoke(GetPlayerScores());
             ResetCurrentHits();
             currentLevel.SetActive(true);
+            ResetBallLocation();
+            initialGolfballHeight = golfBall.position.y;
         }
     }
 
@@ -138,6 +138,23 @@ public class GolfPlayerManager : MonoBehaviour
         }
         return playerScores.ToArray();
     }
+
+    private void PrepPlayerForNextHit()
+    {
+        if (CurrentPlayer.IsHuman)
+        {
+            TeleportRequest request = new()
+            {
+                destinationPosition = new(golfBall.position.x, CurrentPlayer.InitialHeight + GetGolfballHeightDelta(), golfBall.position.z),
+                matchOrientation = MatchOrientation.None
+            };
+            playerTeleportationProvider.QueueTeleportRequest(request);
+        }
+        else CurrentPlayer.transform.position = new(golfBall.position.x, CurrentPlayer.InitialHeight + GetGolfballHeightDelta(), golfBall.position.y);
+        CurrentPlayer.StartHit();
+    }
+
+    private float GetGolfballHeightDelta() => golfBall.position.y - initialGolfballHeight;
 
     private IEnumerator StartTeleportCheckAfterDelay(float delay)
     {
