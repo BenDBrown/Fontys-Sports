@@ -16,16 +16,13 @@ public class GolfPlayerManager : MonoBehaviour
     public UnityEvent<GolfPlayerScoreInfo[]> GameFinished = new();
 
     [SerializeField]
-    private Transform golfBallSpawnLocation; // assumed to be the same between levels, move the levels instead of wanting multiple spawn points
-
-    [SerializeField]
     private Rigidbody golfBall;
 
     [SerializeField]
     private float teleportToBallMinimumDelay = 3;
 
     [SerializeField]
-    private List<GameObject> levels = new(); // first item in list will be first level 2nd item will be 2nd lvl etc
+    private CourseObjAndBallSpawnLocation[] levelArray; // first item in list will be first level 2nd item will be 2nd lvl etc
 
     [SerializeField]
     private TeleportationProvider playerTeleportationProvider;
@@ -34,9 +31,11 @@ public class GolfPlayerManager : MonoBehaviour
 
     public GolfPlayer[] Players { get; private set; }
 
-    private int currentPlayerIndex = 0;
+    private Transform golfBallSpawnLocation => levelArray[currentLevelIndex].GolfBallSpawnLocation;
 
-    private GameObject currentLevel => levels[currentLevelIndex];
+    private GameObject currentLevel => levelArray[currentLevelIndex].Level;
+
+    private int currentPlayerIndex = 0;
 
     private int currentLevelIndex = 0;
     
@@ -109,7 +108,7 @@ public class GolfPlayerManager : MonoBehaviour
     private void NextLevel()
     {
         currentLevel.SetActive(false);
-        if (currentLevelIndex + 1 >= levels.Count)
+        if (currentLevelIndex + 1 >= levelArray.Length)
         {
             GameFinished?.Invoke(GetPlayerScores());
         }
@@ -145,4 +144,15 @@ public class GolfPlayerManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         checkingGolfBallSpeed = true;
     }
+
+    [Serializable]
+    public class CourseObjAndBallSpawnLocation
+    {
+        public GameObject Level;
+
+        public Transform GolfBallSpawnLocation;
+    }
+
 }
+
+

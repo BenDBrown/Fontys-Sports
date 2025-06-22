@@ -358,37 +358,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
   m_PrefabInstance: {fileID: 1919308200}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &575151484
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 575151485}
-  m_Layer: 0
-  m_Name: GolfBallSpawnLocation
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &575151485
+--- !u!4 &575151485 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1332449006151142697, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
+  m_PrefabInstance: {fileID: 6463466936521497101}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 575151484}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1103, z: 4.165}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &720631706
 GameObject:
   m_ObjectHideFlags: 0
@@ -1147,6 +1121,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7063267457233358092, guid: a1304cc331bdfd744b3f4293f21756fd, type: 3}
+      propertyPath: levelss.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7063267457233358092, guid: a1304cc331bdfd744b3f4293f21756fd, type: 3}
       propertyPath: 'levels.Array.data[0]'
       value: 
       objectReference: {fileID: 1340001438}
@@ -1155,9 +1133,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 575151485}
     - target: {fileID: 7063267457233358092, guid: a1304cc331bdfd744b3f4293f21756fd, type: 3}
+      propertyPath: levelArray.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7063267457233358092, guid: a1304cc331bdfd744b3f4293f21756fd, type: 3}
       propertyPath: playerTeleportationProvider
       value: 
       objectReference: {fileID: 1647740375}
+    - target: {fileID: 7063267457233358092, guid: a1304cc331bdfd744b3f4293f21756fd, type: 3}
+      propertyPath: levelArray.Array.data[0].Level
+      value: 
+      objectReference: {fileID: 1340001438}
+    - target: {fileID: 7063267457233358092, guid: a1304cc331bdfd744b3f4293f21756fd, type: 3}
+      propertyPath: levelArray.Array.data[0].GolfBallSpawnLocation
+      value: 
+      objectReference: {fileID: 575151485}
     - target: {fileID: 7063267457233358092, guid: a1304cc331bdfd744b3f4293f21756fd, type: 3}
       propertyPath: GameFinished.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -1404,61 +1394,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 863721170999346082, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
-      propertyPath: Hit.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 863721170999346082, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
-      propertyPath: Scored.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 863721170999346082, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
-      propertyPath: Hit.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 863721170999346082, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
       propertyPath: Hit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3913689634328350544}
-    - target: {fileID: 863721170999346082, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
-      propertyPath: Scored.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 863721170999346082, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
-      propertyPath: Hit.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 863721170999346082, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
-      propertyPath: Scored.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 3913689634328350544}
-    - target: {fileID: 863721170999346082, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
-      propertyPath: Hit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PlayerScored
-      objectReference: {fileID: 0}
-    - target: {fileID: 863721170999346082, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
-      propertyPath: Scored.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 863721170999346082, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
-      propertyPath: Scored.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PlayerScored
-      objectReference: {fileID: 0}
-    - target: {fileID: 863721170999346082, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
-      propertyPath: Hit.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GolfPlayerManager, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 863721170999346082, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
-      propertyPath: Scored.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GolfPlayerManager, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 863721170999346082, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
-      propertyPath: Hit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 863721170999346082, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
-      propertyPath: Scored.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 919432614129864816, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1503,10 +1441,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestLevel
       objectReference: {fileID: 0}
-    - target: {fileID: 4731094436190664231, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1539,5 +1473,4 @@ SceneRoots:
   - {fileID: 6101292009640503659}
   - {fileID: 3913689634328350543}
   - {fileID: 6463466936521497101}
-  - {fileID: 575151485}
   - {fileID: 1341363266}
