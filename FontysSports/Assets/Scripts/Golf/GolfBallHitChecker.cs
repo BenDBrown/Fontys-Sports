@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class GolfHole : MonoBehaviour
+public class GolfBallHitChecker : MonoBehaviour
 {
-    public UnityEvent Scored = new();
+    public UnityEvent Hit = new();
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -14,6 +14,6 @@ public class GolfHole : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
         }
         else Debug.LogWarning($"Could not find rigidbody on Golfball: {collision.gameObject.name}");
-        Scored?.Invoke();
+        Hit?.Invoke();
     }
 }

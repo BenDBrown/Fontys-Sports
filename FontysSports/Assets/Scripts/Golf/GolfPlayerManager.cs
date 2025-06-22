@@ -54,6 +54,8 @@ public class GolfPlayerManager : MonoBehaviour
 
     public void IncrementGolfHits() => CurrentPlayer.IncrementCurrentHits();
 
+    public void ResetBallLocation() => golfBall.SetWorldPose(golfBallSpawnLocation.GetWorldPose());
+
     private void NextTurn()
     {
         CurrentPlayer.EndTurn();
