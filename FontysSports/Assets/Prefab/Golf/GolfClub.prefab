@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3376143442869244465}
   - component: {fileID: 3133456206094607302}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: Connector
   m_TagString: GolfClub
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,6 +86,59 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &811333899456977320
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8855428497420861927}
+  - component: {fileID: 8827371027353454863}
+  m_Layer: 11
+  m_Name: Collider_zNegative
+  m_TagString: GolfClub
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8855428497420861927
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811333899456977320}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.04, z: -0.4875}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3361901020058217667}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8827371027353454863
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811333899456977320}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.15, y: 0.1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1673272146953352536
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,59 +205,6 @@ Transform:
   - {fileID: 2631431361887877951}
   m_Father: {fileID: 3246605013919947533}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2822116360828013107
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1256870360598237993}
-  - component: {fileID: 8804410172647766083}
-  m_Layer: 11
-  m_Name: ClubHeadCollider_1
-  m_TagString: GolfClub
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1256870360598237993
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2822116360828013107}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.19936797, w: 0.97992474}
-  m_LocalPosition: {x: 0.0246, y: 0.0286, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3361901020058217667}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -23}
---- !u!65 &8804410172647766083
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2822116360828013107}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.05, y: 0.05, z: 0.025}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3022474476115163117
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,8 +215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 494430774154785904}
   - component: {fileID: 1160179721043306795}
-  - component: {fileID: 5272526694656982268}
-  - component: {fileID: 3666036559529309515}
+  - component: {fileID: 6098047222264778517}
   m_Layer: 0
   m_Name: GolfClub
   m_TagString: GolfClub
@@ -267,7 +266,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &5272526694656982268
+--- !u!114 &6098047222264778517
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -276,27 +275,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3022474476115163117}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d40750ac82f1d4489400849d3138abb, type: 3}
+  m_Script: {fileID: 11500000, guid: dee971bcf40c66d4d9b72263b6e2aa3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliders:
-  - {fileID: 8804410172647766083}
-  - {fileID: 1320377027560078709}
---- !u!114 &3666036559529309515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3022474476115163117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 643ef34ecc2221844ab59334c97fc6d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clubHead: {fileID: 3361901020058217667}
-  ballRigid: {fileID: 0}
-  forceMultiplier: 1
+  colliderZPositive: {fileID: 1320377027560078709}
+  colliderZNegative: {fileID: 8827371027353454863}
 --- !u!1 &3529661920208367431
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +291,7 @@ GameObject:
   - component: {fileID: 4997368762830101484}
   - component: {fileID: 1320377027560078709}
   m_Layer: 11
-  m_Name: ClubHeadCollider_2
+  m_Name: Collider_zPositive
   m_TagString: GolfClub
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -322,13 +305,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3529661920208367431}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.043619405, w: 0.9990483}
-  m_LocalPosition: {x: -0.0409, y: 0.0409, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.04, z: 0.4875}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3361901020058217667}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -5}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1320377027560078709
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -346,9 +329,9 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 0.1, y: 0.05, z: 0.025}
+  m_Size: {x: 0.15, y: 0.1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3598819744770479651
 GameObject:
@@ -522,7 +505,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &6643431957092278821
+--- !u!1 &4945263301539642046
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -530,84 +513,66 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6288506308394795032}
-  - component: {fileID: 3090078068951437650}
-  - component: {fileID: 4697819426116842974}
-  m_Layer: 0
-  m_Name: Cube 1
+  - component: {fileID: 260592048573168790}
+  - component: {fileID: 3082139649805612034}
+  - component: {fileID: 5388675893470360405}
+  m_Layer: 11
+  m_Name: Collider_zPositiveTrigger
   m_TagString: GolfClub
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6288506308394795032
+--- !u!4 &260592048573168790
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6643431957092278821}
+  m_GameObject: {fileID: 4945263301539642046}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.19936797, w: 0.97992474}
-  m_LocalPosition: {x: 0.0246, y: 0.0286, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.025}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.04, z: 0.5125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3361901020058217667}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -23}
---- !u!33 &3090078068951437650
-MeshFilter:
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3082139649805612034
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6643431957092278821}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &4697819426116842974
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6643431957092278821}
+  m_GameObject: {fileID: 4945263301539642046}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 675edccf68e202c49a70e3c3b0227cbf, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.2, y: 0.2, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5388675893470360405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945263301539642046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fe954edfce12a444905e5f262abf9eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isZPositive: 1
+  colliderHandler: {fileID: 6098047222264778517}
 --- !u!1 &6818701253022897547
 GameObject:
   m_ObjectHideFlags: 0
@@ -633,7 +598,7 @@ Transform:
   m_GameObject: {fileID: 6818701253022897547}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: -0.09, z: -0.179}
+  m_LocalPosition: {x: 0, y: -0.03, z: -0.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -758,12 +723,81 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1098677400719525020}
-  - {fileID: 6288506308394795032}
-  - {fileID: 1256870360598237993}
   - {fileID: 3251466499789644539}
   - {fileID: 4997368762830101484}
+  - {fileID: 260592048573168790}
+  - {fileID: 8855428497420861927}
+  - {fileID: 274928674085552113}
   m_Father: {fileID: 3246605013919947533}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!1 &7334580905329639097
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 274928674085552113}
+  - component: {fileID: 991569566325360819}
+  - component: {fileID: 1407022657131643407}
+  m_Layer: 11
+  m_Name: Collider_zNegativeTrigger
+  m_TagString: GolfClub
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &274928674085552113
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7334580905329639097}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.04, z: -0.5125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3361901020058217667}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &991569566325360819
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7334580905329639097}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.2, y: 0.2, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1407022657131643407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7334580905329639097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fe954edfce12a444905e5f262abf9eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isZPositive: 0
+  colliderHandler: {fileID: 6098047222264778517}
 --- !u!1 &7942981582175359424
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,7 +896,7 @@ GameObject:
   - component: {fileID: 7545196910365718575}
   - component: {fileID: 8344026732843194402}
   m_Layer: 0
-  m_Name: Cube 2
+  m_Name: Mesh
   m_TagString: GolfClub
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -876,13 +910,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8911640381619918763}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.043619405, w: 0.9990483}
-  m_LocalPosition: {x: -0.0409, y: 0.0409, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.05, z: 0.025}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.04, z: 0}
+  m_LocalScale: {x: 0.15, y: 0.05, z: 0.025}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3361901020058217667}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -5}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7545196910365718575
 MeshFilter:
   m_ObjectHideFlags: 0
