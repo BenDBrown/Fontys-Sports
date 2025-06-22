@@ -21,6 +21,8 @@ public class GolfPlayer : MonoBehaviour
     [SerializeField]
     private bool isHuman = false; // this will probably need replacing with an enum if we want to do multiplayer and then a seperate logic flow will be needed for non-host players
 
+    public GameObject GolfClub => golfClub;
+
     public string Name => playerName;
 
     public bool IsHuman => isHuman;
@@ -76,6 +78,7 @@ public class GolfPlayer : MonoBehaviour
     {
         SetGolfClubActive(true);
         TurnStarted?.Invoke();
+        HitStarted?.Invoke();
     }
 
     public void StartHit() => HitStarted?.Invoke();
