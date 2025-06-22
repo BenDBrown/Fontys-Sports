@@ -476,11 +476,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &904250328 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5733218228510966347, guid: 6e10616ddbc03794aa758c32fd9dc84b, type: 3}
-  m_PrefabInstance: {fileID: 1789379670}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &934112897
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -596,6 +591,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1647740375 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1748222016861356527, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+  m_PrefabInstance: {fileID: 1919308200}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f69dc1cb084aa42b2f2f8cd87bc770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1702209499 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3022474476115163117, guid: 68b0aeddfe1521e4e9abfec9203790e3, type: 3}
@@ -1135,7 +1141,7 @@ PrefabInstance:
     - target: {fileID: 7063267457233358092, guid: a1304cc331bdfd744b3f4293f21756fd, type: 3}
       propertyPath: golfBall
       value: 
-      objectReference: {fileID: 904250328}
+      objectReference: {fileID: 1789379671}
     - target: {fileID: 7063267457233358092, guid: a1304cc331bdfd744b3f4293f21756fd, type: 3}
       propertyPath: levels.Array.size
       value: 1
@@ -1148,6 +1154,10 @@ PrefabInstance:
       propertyPath: golfBallSpawnLocation
       value: 
       objectReference: {fileID: 575151485}
+    - target: {fileID: 7063267457233358092, guid: a1304cc331bdfd744b3f4293f21756fd, type: 3}
+      propertyPath: playerTeleportationProvider
+      value: 
+      objectReference: {fileID: 1647740375}
     - target: {fileID: 7063267457233358092, guid: a1304cc331bdfd744b3f4293f21756fd, type: 3}
       propertyPath: GameFinished.m_PersistentCalls.m_Calls.Array.size
       value: 2
