@@ -575,7 +575,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   golfClub: {fileID: 1702209499}
-  name: You
+  playerName: You
 --- !u!4 &1341363266
 Transform:
   m_ObjectHideFlags: 0

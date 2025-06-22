@@ -51,6 +51,7 @@ public class GolfPlayerManager : MonoBehaviour
             if (!device.TryGetFeatureValue(CommonUsages.devicePosition, out Vector3 devicePos))
             {
                 Debug.LogWarning("could not get device postion when teleporting player");
+                checkingGolfBallSpeed = false;
                 return;
             }
             TeleportRequest request = new()

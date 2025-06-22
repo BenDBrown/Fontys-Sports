@@ -12,9 +12,9 @@ public class GolfPlayer : MonoBehaviour
     private GameObject golfClub;
 
     [SerializeField]
-    private string name;
+    private string playerName;
 
-    public string Name => name;
+    public string Name => playerName;
 
     public int TotalHits { get; private set; } = 0;
 
