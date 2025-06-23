@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Target: {fileID: 100234931926740251}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_LoopMode: 0
   m_Method: 0
   m_Duration: 5
@@ -985,15 +985,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f42ff84042b66c94c903ec58af367ddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TurnStarted:
-    m_PersistentCalls:
-      m_Calls: []
-  HitStarted:
-    m_PersistentCalls:
-      m_Calls: []
-  TurnEnded:
-    m_PersistentCalls:
-      m_Calls: []
   golfClub: {fileID: 8262984008808234948}
   playerName: Matt
   isHuman: 0
@@ -1014,6 +1005,11 @@ MonoBehaviour:
   clubHeadPos: {fileID: 8521513241849064146}
   rightHandOffset: {fileID: 7843431198397821889}
   leftHandOffset: {fileID: 3310402991736833169}
+  hitDelay: 2
+  hitDuration: 1
+  hitPower: 100
+  hitPowerRandomness: 20
+  hitDirectionRandomness: 10
 --- !u!1 &7376763602861234423
 GameObject:
   m_ObjectHideFlags: 0
@@ -1486,8 +1482,68 @@ PrefabInstance:
     - {fileID: 3529661920208367431, guid: 68b0aeddfe1521e4e9abfec9203790e3, type: 3}
     - {fileID: 4945263301539642046, guid: 68b0aeddfe1521e4e9abfec9203790e3, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7162763400163660275, guid: 68b0aeddfe1521e4e9abfec9203790e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3879852778277582735}
+    - targetCorrespondingSourceObject: {fileID: 7162763400163660275, guid: 68b0aeddfe1521e4e9abfec9203790e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2875417411660313373}
   m_SourcePrefab: {fileID: 100100000, guid: 68b0aeddfe1521e4e9abfec9203790e3, type: 3}
+--- !u!1 &4051770666546141658 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7162763400163660275, guid: 68b0aeddfe1521e4e9abfec9203790e3, type: 3}
+  m_PrefabInstance: {fileID: 6583691634854594601}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &3879852778277582735
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4051770666546141658}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.23380823, y: 0.15468112, z: 0.28456044}
+  m_Center: {x: -0.0054915375, y: 0.028784681, z: -0.12583482}
+--- !u!114 &2875417411660313373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4051770666546141658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db9fc2f958434f5448f60eada60b752a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Hit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5802285075280180538}
+        m_TargetAssemblyTypeName: GolfAI, Assembly-CSharp
+        m_MethodName: OnBallHit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  freezeBallOnHit: 0
 --- !u!4 &6737783630908390489 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 494430774154785904, guid: 68b0aeddfe1521e4e9abfec9203790e3, type: 3}

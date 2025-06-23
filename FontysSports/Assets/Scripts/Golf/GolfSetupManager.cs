@@ -56,6 +56,11 @@ public class GolfSetupManager : MonoBehaviour
         {
             chosenPlayers.Add(npcPlayerPool[i]);
         }
+        if (chosenPlayers.Count <= 0)
+        {
+            Debug.Log("Must have at least one player. Did you mean to have player character disabled?");
+            return;
+        }
         MenuObject.SetActive(false);
         golfPlayerManager.StartMatch(chosenPlayers.ToArray());
     }

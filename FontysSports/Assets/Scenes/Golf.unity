@@ -245,15 +245,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68b0aeddfe1521e4e9abfec9203790e3, type: 3}
---- !u!114 &247406948 stripped
+--- !u!114 &247406949 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5802285075280180538, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1391454446399664632, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
   m_PrefabInstance: {fileID: 7312478003184975516}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 162d696471d80e144a2ab40dcbef06d1, type: 3}
+  m_Script: {fileID: 11500000, guid: f42ff84042b66c94c903ec58af367ddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &395134091 stripped
@@ -266,60 +266,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1332449006151142697, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
   m_PrefabInstance: {fileID: 6463466936521497101}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &634230034 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4051770666546141658, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
-  m_PrefabInstance: {fileID: 7312478003184975516}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &634230036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 634230034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db9fc2f958434f5448f60eada60b752a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Hit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 247406948}
-        m_TargetAssemblyTypeName: GolfAI, Assembly-CSharp
-        m_MethodName: OnBallHit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  freezeBallOnHit: 0
---- !u!65 &634230037
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 634230034}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.23380823, y: 0.15468112, z: 0.28456044}
-  m_Center: {x: -0.0054915375, y: 0.028784681, z: -0.12583482}
 --- !u!1 &720631706
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,15 +445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f42ff84042b66c94c903ec58af367ddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TurnStarted:
-    m_PersistentCalls:
-      m_Calls: []
-  HitStarted:
-    m_PersistentCalls:
-      m_Calls: []
-  TurnEnded:
-    m_PersistentCalls:
-      m_Calls: []
   golfClub: {fileID: 1702209499}
   playerName: You
   isHuman: 1
@@ -925,9 +862,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1341363265}
     - target: {fileID: 1643531391590848718, guid: 749480c325b12e444a04451309fc9c77, type: 3}
+      propertyPath: maxNrOfNpcs
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1643531391590848718, guid: 749480c325b12e444a04451309fc9c77, type: 3}
       propertyPath: golfPlayerManager
       value: 
       objectReference: {fileID: 3913689634328350544}
+    - target: {fileID: 1643531391590848718, guid: 749480c325b12e444a04451309fc9c77, type: 3}
+      propertyPath: npcPlayerPool.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1643531391590848718, guid: 749480c325b12e444a04451309fc9c77, type: 3}
+      propertyPath: 'npcPlayerPool.Array.data[0]'
+      value: 
+      objectReference: {fileID: 247406949}
     - target: {fileID: 2236834723339270094, guid: 749480c325b12e444a04451309fc9c77, type: 3}
       propertyPath: m_Camera
       value: 
@@ -1438,7 +1387,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4731094436190664231, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1536,20 +1485,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AiPlayer
       objectReference: {fileID: 0}
-    - target: {fileID: 8262984008808234948, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4051770666546141658, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 634230037}
-    - targetCorrespondingSourceObject: {fileID: 4051770666546141658, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 634230036}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

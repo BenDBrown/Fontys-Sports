@@ -50,9 +50,9 @@ public class GolfAI : MonoBehaviour
             enabled = false;
             return;
         }
-        player.TurnStarted.AddListener(OnTurnStart);
-        player.HitStarted.AddListener(OnHitStart);
-        player.TurnEnded.AddListener(OnTurnEnd);
+        player.TurnStarted += OnTurnStart;
+        player.HitStarted += OnHitStart;
+        player.TurnEnded += OnTurnEnd;
         restingPose = transform.GetWorldPose();
         golfClub = player.GolfClub;
         this.splineAnimation = splineAnimation;

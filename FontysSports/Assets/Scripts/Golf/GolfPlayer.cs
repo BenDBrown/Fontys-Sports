@@ -6,11 +6,13 @@ using UnityEngine.XR.Interaction.Toolkit.Inputs.Simulation;
 
 public class GolfPlayer : MonoBehaviour
 {
-    public UnityEvent TurnStarted = new();
+    public delegate void TurnStatusChangeEventHandler();
 
-    public UnityEvent HitStarted = new();
+    public TurnStatusChangeEventHandler TurnStarted;
 
-    public UnityEvent TurnEnded = new();
+    public TurnStatusChangeEventHandler HitStarted;
+
+    public TurnStatusChangeEventHandler TurnEnded;
 
     [SerializeField]
     private GameObject golfClub;

@@ -68,8 +68,9 @@ public class GolfPlayerManager : MonoBehaviour
         { 
             player.ResetTotalHits();
         }
+                ResetBallLocation();
+        PrepPlayerForNextHit();
         CurrentPlayer.StartTurn();
-        ResetBallLocation();
     }
 
     public void PlayerScored()
@@ -100,6 +101,7 @@ public class GolfPlayerManager : MonoBehaviour
             currentPlayerIndex++;
             ResetBallLocation();
         }
+        PrepPlayerForNextHit();
         CurrentPlayer.StartTurn();
     }
 
@@ -150,7 +152,12 @@ public class GolfPlayerManager : MonoBehaviour
             };
             playerTeleportationProvider.QueueTeleportRequest(request);
         }
-        else CurrentPlayer.transform.position = new(golfBall.position.x, CurrentPlayer.InitialHeight + GetGolfballHeightDelta(), golfBall.position.y);
+        else
+        {
+            Debug.Log($"CurrentPlayer pos: {CurrentPlayer.transform.position}, golfball pos: {golfBall.transform.position}");
+            CurrentPlayer.transform.position = new(golfBall.position.x, CurrentPlayer.InitialHeight + GetGolfballHeightDelta(), golfBall.position.y);
+            Debug.Log($"Player pos after change: {CurrentPlayer.transform.position}, golfball pos after change: {golfBall.transform.position}");
+        }
         CurrentPlayer.StartHit();
     }
 
