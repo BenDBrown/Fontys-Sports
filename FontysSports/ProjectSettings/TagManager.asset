@@ -15,6 +15,7 @@ TagManager:
   - Table2
   - Wall
   - Boundary
+  - AITrigger
   layers:
   - Default
   - TransparentFX

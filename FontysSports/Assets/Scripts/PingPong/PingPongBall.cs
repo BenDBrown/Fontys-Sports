@@ -4,6 +4,8 @@ using UnityEngine.Events;
 
 public class PingPongBall : MonoBehaviour
 {
+    public UnityEvent<Rigidbody> AIreact;
+
     public UnityEvent scored;
 
     public UnityEvent reset;
@@ -15,15 +17,15 @@ public class PingPongBall : MonoBehaviour
 
     private bool tableHit = false;
     private bool wallHit = false;
+
+    private Rigidbody rb;
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (!TryGetComponent(out Rigidbody rb))
+        {
+            Debug.LogError("ball didn't have a rigidbody attached");
+        }
+        this.rb = rb;
     }
 
     private void OnTriggerEnter(Collider trigger)
@@ -35,7 +37,8 @@ public class PingPongBall : MonoBehaviour
                 ResetTriggers();
                 reset.Invoke();
                 Debug.Log("Table hit twice");
-            } else
+            }
+            else
             {
                 Debug.Log("Table hit");
                 tableHit = true;
@@ -50,10 +53,23 @@ public class PingPongBall : MonoBehaviour
                 scored.Invoke();
                 ResetTriggers();
             }
-        } else if (trigger.CompareTag("Boundary"))
+        }
+        else if (trigger.CompareTag("Boundary"))
         {
             Debug.Log("Boundary hit");
             ResetTriggers();
+            reset.Invoke();
+        } 
+        else if (trigger.CompareTag("AITrigger"))
+        {
+            AIreact?.Invoke(rb);
+        }
+    }
+
+    private void OnTriggerExit(Collider trigger)
+    {
+        if(trigger.CompareTag("AITrigger"))
+        {
             reset.Invoke();
         }
     }
