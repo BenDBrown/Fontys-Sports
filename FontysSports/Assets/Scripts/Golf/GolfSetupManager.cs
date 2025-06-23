@@ -22,6 +22,9 @@ public class GolfSetupManager : MonoBehaviour
     [SerializeField]
     private int maxNrOfNpcs = 3;
 
+    [SerializeField]
+    private bool includePlayer = true;
+
     private int nrOfNpcs = 0;
 
     private void Start()
@@ -47,7 +50,8 @@ public class GolfSetupManager : MonoBehaviour
 
     public void StartGame()
     {
-        List<GolfPlayer> chosenPlayers = new() { hostPlayer };
+        List<GolfPlayer> chosenPlayers = new();
+        if (includePlayer) chosenPlayers.Add(hostPlayer);
         for (int i = 0; i < nrOfNpcs; i++)
         {
             chosenPlayers.Add(npcPlayerPool[i]);
