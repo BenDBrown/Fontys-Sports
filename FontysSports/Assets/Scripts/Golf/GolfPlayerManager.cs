@@ -37,8 +37,6 @@ public class GolfPlayerManager : MonoBehaviour
     // these two readonly floats decide at what point the golfball is considered to be done moving
     private readonly float stationaryVelocityThreshold = 0.01f;
 
-    private readonly float stationaryForceThreshold = 0.01f;
-
     private int currentPlayerIndex = 0;
 
     private int currentLevelIndex = 0;
@@ -47,11 +45,10 @@ public class GolfPlayerManager : MonoBehaviour
     
     private bool checkingGolfBallSpeed = false;
 
-
     private void Update()
     {
         if (!checkingGolfBallSpeed) return;
-        if (golfBall.linearVelocity.magnitude <= stationaryVelocityThreshold && golfBall.GetAccumulatedForce().magnitude <= stationaryForceThreshold)
+        if (golfBall.linearVelocity.magnitude <= stationaryVelocityThreshold)
         {
             PrepPlayerForNextHit();
             checkingGolfBallSpeed = false;
@@ -67,8 +64,15 @@ public class GolfPlayerManager : MonoBehaviour
         foreach (GolfPlayer player in Players)
         { 
             player.ResetTotalHits();
+            if (player.IsHuman) continue;
+            if (!player.TryGetComponent(out GolfAI ai))
+            {
+                Debug.LogWarning("Non human player did not have attached ai script");
+                continue;
+            }
+            ai.SetGolfballInfo(golfBall, GetGolfballHeightDelta);
         }
-                ResetBallLocation();
+        ResetBallLocation();
         PrepPlayerForNextHit();
         CurrentPlayer.StartTurn();
     }
@@ -152,12 +156,7 @@ public class GolfPlayerManager : MonoBehaviour
             };
             playerTeleportationProvider.QueueTeleportRequest(request);
         }
-        else
-        {
-            Debug.Log($"CurrentPlayer pos: {CurrentPlayer.transform.position}, golfball pos: {golfBall.transform.position}");
-            CurrentPlayer.transform.position = new(golfBall.position.x, CurrentPlayer.InitialHeight + GetGolfballHeightDelta(), golfBall.position.y);
-            Debug.Log($"Player pos after change: {CurrentPlayer.transform.position}, golfball pos after change: {golfBall.transform.position}");
-        }
+        else CurrentPlayer.transform.position = new(golfBall.position.x, CurrentPlayer.InitialHeight + GetGolfballHeightDelta(), golfBall.position.z);
         CurrentPlayer.StartHit();
     }
 

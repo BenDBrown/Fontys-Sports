@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Unity.XR.CoreUtils;
 using UnityEngine;
@@ -11,12 +12,6 @@ public class GolfAI : MonoBehaviour
 
     [SerializeField]
     private Transform clubHeadTargetPos;
-
-    [SerializeField]
-    private Transform clubHeadPos;
-
-    [SerializeField]
-    private Transform rightHandOffset;
 
     [SerializeField]
     private Transform leftHandOffset;
@@ -38,9 +33,15 @@ public class GolfAI : MonoBehaviour
 
     private GameObject golfClub;
 
+    private Rigidbody golfBall;
+
     private SplineAnimate splineAnimation;
 
     private Pose restingPose;
+
+    private float golfballHeightDelta => golfBallHeightDeltaFunc.Invoke();
+
+    private Func<float> golfBallHeightDeltaFunc;
 
     private void Start()
     {
@@ -66,10 +67,12 @@ public class GolfAI : MonoBehaviour
 
     public void OnBallHit(Rigidbody rb)
     {
+        if (!rb.TryGetComponent(out GolfBall ball)) return;
         splineAnimation.Completed -= RestartHit;
-        float randomizedHitPower = hitPower + Random.Range(-hitPowerRandomness, hitDirectionRandomness);
-        Vector3 randomizedHitDirection = Quaternion.Euler(0, Random.Range(-hitDirectionRandomness, hitDirectionRandomness), 0) * transform.TransformDirection(Vector3.forward);
+        float randomizedHitPower = hitPower + UnityEngine.Random.Range(-hitPowerRandomness, hitDirectionRandomness);
+        Vector3 randomizedHitDirection = Quaternion.Euler(0, UnityEngine.Random.Range(-hitDirectionRandomness, hitDirectionRandomness), 0) * -transform.TransformDirection(Vector3.forward);
         rb.AddForce(randomizedHitDirection * randomizedHitPower);
+        ball.TriggerHit();
     }
 
     private void OnTurnStart()
@@ -84,17 +87,35 @@ public class GolfAI : MonoBehaviour
     }
 
     private void OnTurnEnd()
-    { 
+    {
+        Debug.Log("Turn ending");
         transform.SetWorldPose(restingPose);
         golfClub?.SetActive(false);
         StopAllCoroutines();
+    }
+
+    public void SetGolfballInfo(Rigidbody golfballRb, Func<float> golfballHeightDeltaFunc)
+    {
+        golfBall = golfballRb;
+        this.golfBallHeightDeltaFunc = golfballHeightDeltaFunc;
     }
 
     private void RestartHit()
     {
         Debug.LogWarning("AI tried hitting ball but missed. This could be due to the ball moving unexpectedly or it is an error");
         StopAllCoroutines();
+        SetPositionToBall();
         StartCoroutine(HitBall());
+    }
+
+    private void SetPositionToBall()
+    {
+        if (!TryGetComponent(out GolfPlayer player))
+        {
+            Debug.LogError("could not find GolfPlayer component on GolfAI object");
+            return;
+        }
+        transform.position = new(golfBall.position.x, player.InitialHeight + golfballHeightDelta, golfBall.position.z);
     }
 
     private IEnumerator HitBall()
