@@ -19,18 +19,24 @@ public class BallController : MonoBehaviour
     private float initialRoll = 0f;
     private bool isCalibrated = false;
 
-    public string ipAddress = "192.168.4.1"; // Arduino AP IP
-    public int port = 80;
+    [SerializeField] private string ipAddress = "192.168.4.1"; // Arduino AP IP
+    [SerializeField] private int port = 80;
 
-    public GameObject ball;  // Assign your ball in Inspector
-    public float tiltSensitivity = 0.05f;
-    public float maxSpeed = 2.0f;
-    public float damping = 5f;
+    [SerializeField] private GameObject ball;  // Assign the ball in the inspector.
+    [SerializeField] private Transform startTransform;  // Empty GameObject used as the reset position
+    [SerializeField] private float tiltSensitivity = 0.05f;
+    [SerializeField] private float maxSpeed = 2.0f;
+    [SerializeField] private float damping = 5f;
+
+    [SerializeField] private float resetDelay = 10f;
+    [SerializeField] private float positionThreshold = 0.01f;
 
     private Vector3 velocity = Vector3.zero;
     private StringBuilder dataBuffer = new StringBuilder();
-
     private bool isRunning = true;
+
+    private bool isTimerActive = false;
+    private float timer = 0f;
 
     void Start()
     {
@@ -41,7 +47,7 @@ public class BallController : MonoBehaviour
 
     void Update()
     {
-        if (ball == null || !isCalibrated)
+        if (ball == null || startTransform == null || !isCalibrated)
             return;
 
         float currentRoll, currentPitch;
@@ -62,6 +68,45 @@ public class BallController : MonoBehaviour
         velocity = Vector3.Lerp(velocity, targetVelocity, Time.deltaTime * damping);
 
         ball.transform.Translate(velocity * Time.deltaTime, Space.World);
+
+        // Detect movement from start position
+        float distanceFromStart = Vector3.Distance(ball.transform.position, startTransform.position);
+
+        if (distanceFromStart > positionThreshold)
+        {
+            if (!isTimerActive)
+            {
+                isTimerActive = true;
+                timer = 0f;
+                Debug.Log("Ball left start position. Starting reset timer.");
+            }
+        }
+        else
+        {
+            // If returned manually, cancel reset
+            isTimerActive = false;
+            timer = 0f;
+        }
+
+        if (isTimerActive)
+        {
+            timer += Time.deltaTime;
+            if (timer >= resetDelay)
+            {
+                ResetBall();
+            }
+        }
+    }
+
+    private void ResetBall()
+    {
+        ball.transform.position = startTransform.position;
+        velocity = Vector3.zero;
+        isCalibrated = false; // Recalibrate on next data
+        isTimerActive = false;
+        timer = 0f;
+
+        Debug.Log("Ball reset to startTransform position. Awaiting recalibration.");
     }
 
     private void ConnectToServer()
@@ -90,7 +135,7 @@ public class BallController : MonoBehaviour
                 }
 
                 string data = Encoding.ASCII.GetString(buffer, 0, bytesRead);
-                Debug.Log($"Received raw data: [{data.Replace("\n", "\\n")}]"); // Log raw data with \n visible
+                Debug.Log($"Received raw data: [{data.Replace("\n", "\\n")}]");
 
                 dataBuffer.Append(data);
 
