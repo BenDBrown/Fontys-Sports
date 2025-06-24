@@ -8,13 +8,19 @@ using System.Collections.Generic;
 public class RadioButton : MonoBehaviour
 {
     [Header("References")]
-    public string folderPath = "Assets/FeetSaber/Songs";  // Path to the folder
-    public GameObject radioButtonPrefab;  // Prefab for radio buttons (UI Toggle)
-    public Transform parentPanel;         // Parent UI Panel to hold the radio buttons
-    public AudioSource audioSource;       // Reference to the AudioSource to play songs
-    public Canvas canvas;
-    public Spawner spawner;
-
+    [SerializeField]
+    private GameObject radioButtonPrefab;  // Prefab for radio buttons (UI Toggle)
+    [SerializeField]
+    private Image selectButtonPrefab;  // Prefab for the select button (RadioButton)
+    [SerializeField]
+    private Transform parentPanel;         // Parent UI Panel to hold the radio buttons
+    [SerializeField]
+    private AudioSource audioSource;       // Reference to the AudioSource to play songs
+    [SerializeField]
+    private Canvas canvas;
+    [SerializeField]
+    private Spawner spawner;
+    [SerializeField]
     private List<AudioClip> songClips = new List<AudioClip>();  // List of audio clips
 
     void Start()
@@ -26,28 +32,18 @@ public class RadioButton : MonoBehaviour
 
     void GenerateRadioButtons()
     {
-        //// Get all assets in the specified folder using AssetDatabase
-        //string[] assetPaths = AssetDatabase.FindAssets("", new[] { folderPath });
+        foreach (Transform child in parentPanel)
+        {
+            Destroy(child.gameObject);
+        }
 
-        //int index = 0;  // Index to associate each song with the toggle button
+        for (int index = 0; index < songClips.Count; index++)
+        {
+            AudioClip clip = songClips[index];
+            string fileName = clip.name;
 
-        //foreach (string guid in assetPaths)
-        //{
-        //    string assetPath = AssetDatabase.GUIDToAssetPath(guid);
-
-        //    // Only consider audio files (you can extend this to other types if needed)
-        //    if (assetPath.EndsWith(".mp3") || assetPath.EndsWith(".ogg"))
-        //    {
-        //        // Create a new radio button for each audio file
-        //        string fileName = System.IO.Path.GetFileNameWithoutExtension(assetPath); // Get file name without extension
-        //        AudioClip clip = AssetDatabase.LoadAssetAtPath<AudioClip>(assetPath);  // Load the audio clip
-        //        songClips.Add(clip);  // Add clip to the list
-
-        //        // Create radio button
-        //        CreateRadioButton(fileName, index, clip);
-        //        index++;  // Increment index for next song
-        //    }
-        //}
+            CreateRadioButton(fileName, index, clip);
+        }
     }
 
     void CreateRadioButton(string fileName, int index, AudioClip clip)
@@ -81,7 +77,12 @@ public class RadioButton : MonoBehaviour
             {
                 audioSource.clip = songClips[index];  // Set the audio clip to the selected song
                 audioSource.Play();  // Play the audio
+                selectButtonPrefab.enabled = true; // Enable the select button if the radio button is selected
             }
+        }
+        else
+        {
+            selectButtonPrefab.enabled = false;  // Disable the select button if the radio button is not selected
         }
     }
 
