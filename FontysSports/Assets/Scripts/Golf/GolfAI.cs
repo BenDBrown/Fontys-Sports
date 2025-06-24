@@ -104,7 +104,6 @@ public class GolfAI : MonoBehaviour
     {
         Debug.LogWarning("AI tried hitting ball but missed. This could be due to the ball moving unexpectedly or it is an error");
         StopAllCoroutines();
-        SetPositionToBall();
         StartCoroutine(HitBall());
     }
 
@@ -121,6 +120,7 @@ public class GolfAI : MonoBehaviour
     private IEnumerator HitBall()
     {
         yield return new WaitForSeconds(hitDelay);
+        SetPositionToBall();
         splineAnimation.Duration = hitDuration;
         splineAnimation.Restart(true);
     }
