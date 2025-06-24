@@ -20,24 +20,20 @@ public class GolfSetupManager : MonoBehaviour
     private GameObject MenuObject;
 
     [SerializeField]
-    private int maxNrOfNpcs = 3;
-
-    [SerializeField]
     private bool includePlayer = true;
 
     private int nrOfNpcs = 0;
 
     private void Start()
     {
-        if(maxNrOfNpcs <= npcPlayerPool.Length) return;
-        Debug.LogWarning($"max nr of npcs was set to a value higher than the available amount of NPC players. Max: {maxNrOfNpcs}, Available: {npcPlayerPool.Length}");
-        maxNrOfNpcs = npcPlayerPool.Length;
+        if(npcPlayerPool.Length <= npcPlayerPool.Length) return;
+        Debug.LogWarning($"max nr of npcs was set to a value higher than the available amount of NPC players. Max: {npcPlayerPool.Length}");
     }
 
     public void IncrementNrOfNpcs()
     { 
         nrOfNpcs++;
-        if(nrOfNpcs > maxNrOfNpcs) nrOfNpcs = maxNrOfNpcs;
+        if(nrOfNpcs > npcPlayerPool.Length) nrOfNpcs = npcPlayerPool.Length;
         nrOfNpcsIndicator.text = nrOfNpcs.ToString();
     }
 
