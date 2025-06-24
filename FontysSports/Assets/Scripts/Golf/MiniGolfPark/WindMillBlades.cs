@@ -4,7 +4,7 @@ public class WindMillBlades : MonoBehaviour
 {
     [SerializeField] private Transform bladesMesh;
     [SerializeField] private Transform bladesCollider;
-    [SerializeField] private float spinDistance = 1;
+    [SerializeField] private float spinDistance = 100;
     [SerializeField] private float spinSpeed = 1;
     private Vector3 velocity = Vector3.zero;
 
