@@ -10,6 +10,8 @@ public class PingPongBall : MonoBehaviour
 
     public UnityEvent reset;
 
+    public UnityEvent AIReset;
+
     [SerializeField]
     BoxCollider Table1;
     [SerializeField]
@@ -70,7 +72,7 @@ public class PingPongBall : MonoBehaviour
     {
         if(trigger.CompareTag("AITrigger"))
         {
-            reset.Invoke();
+            AIReset.Invoke();
         }
     }
 
