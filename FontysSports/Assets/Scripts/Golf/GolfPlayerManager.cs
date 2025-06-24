@@ -30,9 +30,9 @@ public class GolfPlayerManager : MonoBehaviour
 
     public GolfPlayer[] Players { get; private set; }
 
-    private Transform golfBallSpawnLocation => levelArray[currentLevelIndex].GolfBallSpawnLocation;
+    public GameObject CurrentLevel => levelArray[currentLevelIndex].Level;
 
-    private GameObject currentLevel => levelArray[currentLevelIndex].Level;
+    private Transform golfBallSpawnLocation => levelArray[currentLevelIndex].GolfBallSpawnLocation;
 
     // these two readonly floats decide at what point the golfball is considered to be done moving
     private readonly float stationaryVelocityThreshold = 0.01f;
@@ -65,7 +65,7 @@ public class GolfPlayerManager : MonoBehaviour
         Players = players;
         currentLevelIndex = 0;
         currentPlayerIndex = 0;
-        currentLevel.SetActive(true);
+        CurrentLevel.SetActive(true);
         foreach (GolfPlayer player in Players)
         { 
             player.ResetTotalHits();
@@ -116,7 +116,7 @@ public class GolfPlayerManager : MonoBehaviour
 
     private bool TryPlayNextLevel()
     {
-        currentLevel.SetActive(false);
+        CurrentLevel.SetActive(false);
         if (currentLevelIndex + 1 >= levelArray.Length)
         {
             GameFinished?.Invoke(GetPlayerScores());
@@ -128,7 +128,7 @@ public class GolfPlayerManager : MonoBehaviour
             currentLevelIndex++;
             LevelFinished?.Invoke(GetPlayerScores());
             ResetCurrentHits();
-            currentLevel.SetActive(true);
+            CurrentLevel.SetActive(true);
             ResetBallLocation();
             initialGolfballHeight = golfBall.position.y;
             return true;

@@ -299,11 +299,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5802285075280180538, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
       propertyPath: hitPower
-      value: 1000
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 5802285075280180538, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
       propertyPath: hitPowerRandomness
-      value: 200
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5802285075280180538, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
+      propertyPath: hitDirectionRandomness
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6807518565198009958, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
       propertyPath: m_LocalPosition.x
@@ -523,11 +527,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5802285075280180538, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
       propertyPath: hitPower
-      value: 1000
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 5802285075280180538, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
       propertyPath: hitPowerRandomness
-      value: 200
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5802285075280180538, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
+      propertyPath: hitDirectionRandomness
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6807518565198009958, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1785,6 +1793,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4048716031493064156, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
+      propertyPath: m_TagString
+      value: Goal
+      objectReference: {fileID: 0}
     - target: {fileID: 4731094436190664231, guid: 1e474a35a844246458143fd9719bda0d, type: 3}
       propertyPath: m_Name
       value: TestLevel
@@ -1859,11 +1871,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5802285075280180538, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
       propertyPath: hitPower
-      value: 1000
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 5802285075280180538, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
       propertyPath: hitPowerRandomness
-      value: 200
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5802285075280180538, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
+      propertyPath: hitDirectionRandomness
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6807518565198009958, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
       propertyPath: m_LocalPosition.x

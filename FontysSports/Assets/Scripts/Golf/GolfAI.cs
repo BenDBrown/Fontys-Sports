@@ -39,6 +39,8 @@ public class GolfAI : MonoBehaviour
 
     private Pose restingPose;
 
+    private Vector3 targetPos;
+
     private float golfballHeightDelta => golfBallHeightDeltaFunc.Invoke();
 
     private Func<float> golfBallHeightDeltaFunc;
@@ -75,14 +77,22 @@ public class GolfAI : MonoBehaviour
         ball.TriggerHit();
     }
 
+    private void Aim()
+    {
+        transform.LookAt(new Vector3(targetPos.x, transform.position.y, targetPos.z), Vector3.up);
+        transform.Rotate(0, 180, 0);
+    }
+
     private void OnTurnStart()
-    { 
-        golfClub.SetActive(true);    
+    {
+        golfClub.SetActive(true);
+        FindHolePosition();
     }
 
     private void OnHitStart()
     {
         splineAnimation.Completed += RestartHit;
+        Aim();
         StartCoroutine(HitBall());
     }
 
@@ -121,8 +131,35 @@ public class GolfAI : MonoBehaviour
     {
         yield return new WaitForSeconds(hitDelay);
         SetPositionToBall();
+        Aim();
         splineAnimation.Duration = hitDuration;
         splineAnimation.Restart(true);
+    }
+
+    private void FindHolePosition()
+    {
+        GolfPlayerManager[] managers = FindObjectsByType<GolfPlayerManager>(FindObjectsSortMode.None);
+        if (managers.Length != 1)
+        {
+            Debug.LogError($"{managers.Length} {nameof(GolfPlayerManager)}(s) found. There must be only 1");
+            return;
+        }
+        GolfPlayerManager manager = managers[0];
+#nullable enable
+        Transform? target = null;
+        string holeTag = "Goal";
+        foreach (Transform t in manager.CurrentLevel.transform)
+        {
+            if (t.tag != holeTag) continue;
+            target = t;
+        }
+        if (target == null)
+        {
+            Debug.LogError($"could not find golf hole with tag {holeTag}");
+            return;
+        }
+        targetPos = target.position;
+#nullable disable
     }
 
 }
