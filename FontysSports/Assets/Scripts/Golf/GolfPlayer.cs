@@ -14,6 +14,8 @@ public class GolfPlayer : MonoBehaviour
 
     public TurnStatusChangeEventHandler TurnEnded;
 
+    public const int SCORE_PER_COURSE_MAX = 7;
+
     [SerializeField]
     private GameObject golfClub;
 
@@ -71,7 +73,7 @@ public class GolfPlayer : MonoBehaviour
 
     public void IncrementCurrentHits()
     {
-        if(CurrentHits >= 7) return;
+        if(CurrentHits >= SCORE_PER_COURSE_MAX) return;
         TotalHits++;
         CurrentHits++;
     }

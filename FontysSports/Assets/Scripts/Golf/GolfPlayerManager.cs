@@ -50,8 +50,13 @@ public class GolfPlayerManager : MonoBehaviour
         if (!checkingGolfBallSpeed) return;
         if (golfBall.linearVelocity.magnitude <= stationaryVelocityThreshold)
         {
-            PrepPlayerForNextHit();
             checkingGolfBallSpeed = false;
+            if (CurrentPlayer.CurrentHits >= GolfPlayer.SCORE_PER_COURSE_MAX)
+            {
+                PlayerScored();
+                return;
+            }
+            PrepPlayerForNextHit();
         }
     }
 
@@ -98,7 +103,7 @@ public class GolfPlayerManager : MonoBehaviour
         if (currentPlayerIndex + 1 >= Players.Length)
         {
             currentPlayerIndex = 0;
-            NextLevel();
+            if(!TryPlayNextLevel()) return;
         }
         else
         {
@@ -109,12 +114,14 @@ public class GolfPlayerManager : MonoBehaviour
         CurrentPlayer.StartTurn();
     }
 
-    private void NextLevel()
+    private bool TryPlayNextLevel()
     {
         currentLevel.SetActive(false);
         if (currentLevelIndex + 1 >= levelArray.Length)
         {
             GameFinished?.Invoke(GetPlayerScores());
+            checkingGolfBallSpeed = false;
+            return false;
         }
         else 
         {
@@ -124,6 +131,7 @@ public class GolfPlayerManager : MonoBehaviour
             currentLevel.SetActive(true);
             ResetBallLocation();
             initialGolfballHeight = golfBall.position.y;
+            return true;
         }
     }
 
