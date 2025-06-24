@@ -1,9 +1,10 @@
-using NUnit.Framework;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation;
 
 public class GolfPlayerManager : MonoBehaviour
 {
@@ -14,23 +15,48 @@ public class GolfPlayerManager : MonoBehaviour
     public UnityEvent<GolfPlayerScoreInfo[]> GameFinished = new();
 
     [SerializeField]
-    private Transform golfBallSpawnLocation; // assumed to be the same between levels, move the levels instead of wanting multiple spawn points
+    private Rigidbody golfBall;
 
     [SerializeField]
-    private Transform golfBall;
+    private float teleportToBallMinimumDelay = 3;
 
     [SerializeField]
-    private List<GameObject> levels = new(); // first item in list will be first level 2nd item will be 2nd lvl etc
+    private CourseObjAndBallSpawnLocation[] levelArray; // first item in list will be first level 2nd item will be 2nd lvl etc
+
+    [SerializeField]
+    private TeleportationProvider playerTeleportationProvider;
 
     public GolfPlayer CurrentPlayer => Players[currentPlayerIndex];
 
     public GolfPlayer[] Players { get; private set; }
 
+    private Transform golfBallSpawnLocation => levelArray[currentLevelIndex].GolfBallSpawnLocation;
+
+    private GameObject currentLevel => levelArray[currentLevelIndex].Level;
+
+    // these two readonly floats decide at what point the golfball is considered to be done moving
+    private readonly float stationaryVelocityThreshold = 0.01f;
+
+    private readonly float stationaryForceThreshold = 0.01f;
+
     private int currentPlayerIndex = 0;
 
-    private GameObject currentLevel => levels[currentLevelIndex];
-
     private int currentLevelIndex = 0;
+
+    private float initialGolfballHeight = 0;
+    
+    private bool checkingGolfBallSpeed = false;
+
+
+    private void Update()
+    {
+        if (!checkingGolfBallSpeed) return;
+        if (golfBall.linearVelocity.magnitude <= stationaryVelocityThreshold && golfBall.GetAccumulatedForce().magnitude <= stationaryForceThreshold)
+        {
+            PrepPlayerForNextHit();
+            checkingGolfBallSpeed = false;
+        }
+    }
 
     public void StartMatch(GolfPlayer[] players)
     { 
@@ -43,16 +69,23 @@ public class GolfPlayerManager : MonoBehaviour
             player.ResetTotalHits();
         }
         CurrentPlayer.StartTurn();
-        golfBall.SetWorldPose(golfBallSpawnLocation.GetWorldPose());
+        ResetBallLocation();
     }
 
     public void PlayerScored()
     {
+        StopAllCoroutines();
         PlayerScoredWithHits?.Invoke(CurrentPlayer.CurrentHits);
         NextTurn();
     }
 
-    public void IncrementGolfHits() => CurrentPlayer.IncrementCurrentHits();
+    public void IncrementGolfHits()
+    {
+        CurrentPlayer.IncrementCurrentHits();
+        StartCoroutine(StartTeleportCheckAfterDelay(teleportToBallMinimumDelay));
+    }
+
+    public void ResetBallLocation() => golfBall.transform.SetWorldPose(golfBallSpawnLocation.GetWorldPose());
 
     private void NextTurn()
     {
@@ -62,15 +95,18 @@ public class GolfPlayerManager : MonoBehaviour
             currentPlayerIndex = 0;
             NextLevel();
         }
-        else currentPlayerIndex++;
+        else
+        {
+            currentPlayerIndex++;
+            ResetBallLocation();
+        }
         CurrentPlayer.StartTurn();
-        golfBall.SetWorldPose(golfBallSpawnLocation.GetWorldPose());
     }
 
     private void NextLevel()
     {
         currentLevel.SetActive(false);
-        if (currentLevelIndex + 1 >= levels.Count)
+        if (currentLevelIndex + 1 >= levelArray.Length)
         {
             GameFinished?.Invoke(GetPlayerScores());
         }
@@ -80,6 +116,8 @@ public class GolfPlayerManager : MonoBehaviour
             LevelFinished?.Invoke(GetPlayerScores());
             ResetCurrentHits();
             currentLevel.SetActive(true);
+            ResetBallLocation();
+            initialGolfballHeight = golfBall.position.y;
         }
     }
 
@@ -100,4 +138,38 @@ public class GolfPlayerManager : MonoBehaviour
         }
         return playerScores.ToArray();
     }
+
+    private void PrepPlayerForNextHit()
+    {
+        if (CurrentPlayer.IsHuman)
+        {
+            TeleportRequest request = new()
+            {
+                destinationPosition = new(golfBall.position.x, CurrentPlayer.InitialHeight + GetGolfballHeightDelta(), golfBall.position.z),
+                matchOrientation = MatchOrientation.None
+            };
+            playerTeleportationProvider.QueueTeleportRequest(request);
+        }
+        else CurrentPlayer.transform.position = new(golfBall.position.x, CurrentPlayer.InitialHeight + GetGolfballHeightDelta(), golfBall.position.y);
+        CurrentPlayer.StartHit();
+    }
+
+    private float GetGolfballHeightDelta() => golfBall.position.y - initialGolfballHeight;
+
+    private IEnumerator StartTeleportCheckAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        checkingGolfBallSpeed = true;
+    }
+
+    [Serializable]
+    public class CourseObjAndBallSpawnLocation
+    {
+        public GameObject Level;
+
+        public Transform GolfBallSpawnLocation;
+    }
+
 }
+
+
