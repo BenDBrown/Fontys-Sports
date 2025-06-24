@@ -6,9 +6,11 @@ using UnityEngine.XR.Interaction.Toolkit.Inputs.Simulation;
 
 public class GolfPlayer : MonoBehaviour
 {
+    public delegate void TurnStartedEventHandler(GameObject currentLevel);
+
     public delegate void TurnStatusChangeEventHandler();
 
-    public TurnStatusChangeEventHandler TurnStarted;
+    public TurnStartedEventHandler TurnStarted;
 
     public TurnStatusChangeEventHandler HitStarted;
 
@@ -78,10 +80,10 @@ public class GolfPlayer : MonoBehaviour
         CurrentHits++;
     }
 
-    public void StartTurn()
+    public void StartTurn(GameObject currentLevel)
     {
         SetGolfClubActive(true);
-        TurnStarted?.Invoke();
+        TurnStarted?.Invoke(currentLevel);
         HitStarted?.Invoke();
     }
 

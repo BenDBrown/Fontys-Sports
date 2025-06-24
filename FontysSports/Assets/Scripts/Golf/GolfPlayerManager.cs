@@ -79,7 +79,7 @@ public class GolfPlayerManager : MonoBehaviour
         }
         ResetBallLocation();
         PrepPlayerForNextHit();
-        CurrentPlayer.StartTurn();
+        CurrentPlayer.StartTurn(CurrentLevel);
     }
 
     public void PlayerScored()
@@ -111,7 +111,7 @@ public class GolfPlayerManager : MonoBehaviour
             ResetBallLocation();
         }
         PrepPlayerForNextHit();
-        CurrentPlayer.StartTurn();
+        CurrentPlayer.StartTurn(CurrentLevel);
     }
 
     private bool TryPlayNextLevel()

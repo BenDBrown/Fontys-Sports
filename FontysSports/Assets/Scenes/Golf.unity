@@ -299,15 +299,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5802285075280180538, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
       propertyPath: hitPower
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 5802285075280180538, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
-      propertyPath: hitPowerRandomness
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5802285075280180538, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
+      propertyPath: hitPowerRandomness
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5802285075280180538, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
       propertyPath: hitDirectionRandomness
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6807518565198009958, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
       propertyPath: m_LocalPosition.x
@@ -527,15 +527,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5802285075280180538, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
       propertyPath: hitPower
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 5802285075280180538, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
-      propertyPath: hitPowerRandomness
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5802285075280180538, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
+      propertyPath: hitPowerRandomness
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5802285075280180538, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
       propertyPath: hitDirectionRandomness
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6807518565198009958, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1871,15 +1871,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5802285075280180538, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
       propertyPath: hitPower
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 5802285075280180538, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
-      propertyPath: hitPowerRandomness
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5802285075280180538, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
+      propertyPath: hitPowerRandomness
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5802285075280180538, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
       propertyPath: hitDirectionRandomness
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6807518565198009958, guid: 7156b2525aefb6442925382a3638cf02, type: 3}
       propertyPath: m_LocalPosition.x

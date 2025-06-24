@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.Splines;
@@ -33,13 +34,19 @@ public class GolfAI : MonoBehaviour
 
     private GameObject golfClub;
 
+    private GameObject currentGolfLevel;
+
     private Rigidbody golfBall;
 
     private SplineAnimate splineAnimation;
 
     private Pose restingPose;
 
-    private Vector3 targetPos;
+    private Vector3 finalTargetPos;
+
+    private Vector3 currentTargetPos => GetCurrentTargetPos();
+
+    private Vector3? nullableCurrentTargetPos = null;
 
     private float golfballHeightDelta => golfBallHeightDeltaFunc.Invoke();
 
@@ -63,7 +70,7 @@ public class GolfAI : MonoBehaviour
 
     private void Update()
     {
-        if(!splineAnimation.IsPlaying) return;
+        if (!splineAnimation.IsPlaying) return;
         leftHandOffset.position = leftHandHoldingPosition.position;
     }
 
@@ -71,28 +78,30 @@ public class GolfAI : MonoBehaviour
     {
         if (!rb.TryGetComponent(out GolfBall ball)) return;
         splineAnimation.Completed -= RestartHit;
-        float randomizedHitPower = hitPower + UnityEngine.Random.Range(-hitPowerRandomness, hitDirectionRandomness);
+        float randomizedHitPower = (hitPower + UnityEngine.Random.Range(-hitPowerRandomness, hitDirectionRandomness)) * currentTargetPos.magnitude;
         Vector3 randomizedHitDirection = Quaternion.Euler(0, UnityEngine.Random.Range(-hitDirectionRandomness, hitDirectionRandomness), 0) * -transform.TransformDirection(Vector3.forward);
         rb.AddForce(randomizedHitDirection * randomizedHitPower);
         ball.TriggerHit();
     }
 
-    private void Aim()
+    private void RotatePlayerToTarget()
     {
-        transform.LookAt(new Vector3(targetPos.x, transform.position.y, targetPos.z), Vector3.up);
+        transform.LookAt(new Vector3(currentTargetPos.x, transform.position.y, currentTargetPos.z), Vector3.up);
         transform.Rotate(0, 180, 0);
     }
 
-    private void OnTurnStart()
+    private void OnTurnStart(GameObject currentLevel)
     {
+        currentGolfLevel = currentLevel;
         golfClub.SetActive(true);
         FindHolePosition();
+        ListenToCheckPoints();
     }
 
     private void OnHitStart()
     {
         splineAnimation.Completed += RestartHit;
-        Aim();
+        RotatePlayerToTarget();
         StartCoroutine(HitBall());
     }
 
@@ -102,6 +111,7 @@ public class GolfAI : MonoBehaviour
         transform.SetWorldPose(restingPose);
         golfClub?.SetActive(false);
         StopAllCoroutines();
+        StopListeningToCheckPoints();
     }
 
     public void SetGolfballInfo(Rigidbody golfballRb, Func<float> golfballHeightDeltaFunc)
@@ -131,9 +141,38 @@ public class GolfAI : MonoBehaviour
     {
         yield return new WaitForSeconds(hitDelay);
         SetPositionToBall();
-        Aim();
+        RotatePlayerToTarget();
         splineAnimation.Duration = hitDuration;
         splineAnimation.Restart(true);
+    }
+
+    private void ListenToCheckPoints()
+    {
+        List<AiTargetCheckpoint> checkpoints = new();
+        foreach (AiTargetCheckpoint checkpoint in currentGolfLevel.GetComponentsInChildren<AiTargetCheckpoint>())
+        {
+            checkpoint.GolfBallEntered += () => SetCurrentTarget(checkpoint);
+        }
+    }
+
+    private void StopListeningToCheckPoints()
+    {
+        List<AiTargetCheckpoint> checkpoints = new();
+        foreach (AiTargetCheckpoint checkpoint in currentGolfLevel.GetComponentsInChildren<AiTargetCheckpoint>())
+        {
+            foreach (Delegate d in checkpoint.GolfBallEntered.GetInvocationList())
+            {
+                checkpoint.GolfBallEntered -= (AiTargetCheckpoint.GolfBallCollisionEventHandler)d;
+            }
+        }
+    }
+
+    private void SetCurrentTarget(AiTargetCheckpoint checkpoint) => nullableCurrentTargetPos = checkpoint.Target;
+
+    private Vector3 GetCurrentTargetPos()
+    { 
+        if(!nullableCurrentTargetPos.HasValue) return finalTargetPos;
+        return nullableCurrentTargetPos.Value;
     }
 
     private void FindHolePosition()
@@ -158,7 +197,7 @@ public class GolfAI : MonoBehaviour
             Debug.LogError($"could not find golf hole with tag {holeTag}");
             return;
         }
-        targetPos = target.position;
+        finalTargetPos = target.position;
 #nullable disable
     }
 
