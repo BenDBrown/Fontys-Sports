@@ -1,0 +1,128 @@
+using System;
+using System.Collections;
+using Unity.XR.CoreUtils;
+using UnityEngine;
+using UnityEngine.Splines;
+
+
+public class GolfAI : MonoBehaviour
+{
+    [SerializeField]
+    private Transform leftHandHoldingPosition;
+
+    [SerializeField]
+    private Transform clubHeadTargetPos;
+
+    [SerializeField]
+    private Transform leftHandOffset;
+
+    [SerializeField]
+    private float hitDelay = 2; // time that the npc pauses to give the illusion of aiming
+
+    [SerializeField]
+    private float hitDuration = 1;
+
+    [SerializeField]
+    private float hitPower = 100;
+
+    [SerializeField]
+    private float hitPowerRandomness = 20;
+
+    [SerializeField]
+    private float hitDirectionRandomness = 10; // euler degrees
+
+    private GameObject golfClub;
+
+    private Rigidbody golfBall;
+
+    private SplineAnimate splineAnimation;
+
+    private Pose restingPose;
+
+    private float golfballHeightDelta => golfBallHeightDeltaFunc.Invoke();
+
+    private Func<float> golfBallHeightDeltaFunc;
+
+    private void Start()
+    {
+        if ((!TryGetComponent(out GolfPlayer player)) || (!clubHeadTargetPos.TryGetComponent(out SplineAnimate splineAnimation)))
+        {
+            Debug.LogError($"Golf AI does not have a GolfPlayer or SplineAnimate component as is required");
+            enabled = false;
+            return;
+        }
+        player.TurnStarted += OnTurnStart;
+        player.HitStarted += OnHitStart;
+        player.TurnEnded += OnTurnEnd;
+        restingPose = transform.GetWorldPose();
+        golfClub = player.GolfClub;
+        this.splineAnimation = splineAnimation;
+    }
+
+    private void Update()
+    {
+        if(!splineAnimation.IsPlaying) return;
+        leftHandOffset.position = leftHandHoldingPosition.position;
+    }
+
+    public void OnBallHit(Rigidbody rb)
+    {
+        if (!rb.TryGetComponent(out GolfBall ball)) return;
+        splineAnimation.Completed -= RestartHit;
+        float randomizedHitPower = hitPower + UnityEngine.Random.Range(-hitPowerRandomness, hitDirectionRandomness);
+        Vector3 randomizedHitDirection = Quaternion.Euler(0, UnityEngine.Random.Range(-hitDirectionRandomness, hitDirectionRandomness), 0) * -transform.TransformDirection(Vector3.forward);
+        rb.AddForce(randomizedHitDirection * randomizedHitPower);
+        ball.TriggerHit();
+    }
+
+    private void OnTurnStart()
+    { 
+        golfClub.SetActive(true);    
+    }
+
+    private void OnHitStart()
+    {
+        splineAnimation.Completed += RestartHit;
+        StartCoroutine(HitBall());
+    }
+
+    private void OnTurnEnd()
+    {
+        Debug.Log("Turn ending");
+        transform.SetWorldPose(restingPose);
+        golfClub?.SetActive(false);
+        StopAllCoroutines();
+    }
+
+    public void SetGolfballInfo(Rigidbody golfballRb, Func<float> golfballHeightDeltaFunc)
+    {
+        golfBall = golfballRb;
+        this.golfBallHeightDeltaFunc = golfballHeightDeltaFunc;
+    }
+
+    private void RestartHit()
+    {
+        Debug.LogWarning("AI tried hitting ball but missed. This could be due to the ball moving unexpectedly or it is an error");
+        StopAllCoroutines();
+        StartCoroutine(HitBall());
+    }
+
+    private void SetPositionToBall()
+    {
+        if (!TryGetComponent(out GolfPlayer player))
+        {
+            Debug.LogError("could not find GolfPlayer component on GolfAI object");
+            return;
+        }
+        transform.position = new(golfBall.position.x, player.InitialHeight + golfballHeightDelta, golfBall.position.z);
+    }
+
+    private IEnumerator HitBall()
+    {
+        yield return new WaitForSeconds(hitDelay);
+        SetPositionToBall();
+        splineAnimation.Duration = hitDuration;
+        splineAnimation.Restart(true);
+    }
+
+}

@@ -6,11 +6,15 @@ using UnityEngine.XR.Interaction.Toolkit.Inputs.Simulation;
 
 public class GolfPlayer : MonoBehaviour
 {
-    public UnityEvent TurnStarted = new();
+    public delegate void TurnStatusChangeEventHandler();
 
-    public UnityEvent HitStarted = new();
+    public TurnStatusChangeEventHandler TurnStarted;
 
-    public UnityEvent TurnEnded = new();
+    public TurnStatusChangeEventHandler HitStarted;
+
+    public TurnStatusChangeEventHandler TurnEnded;
+
+    public const int SCORE_PER_COURSE_MAX = 7;
 
     [SerializeField]
     private GameObject golfClub;
@@ -20,6 +24,8 @@ public class GolfPlayer : MonoBehaviour
 
     [SerializeField]
     private bool isHuman = false; // this will probably need replacing with an enum if we want to do multiplayer and then a seperate logic flow will be needed for non-host players
+
+    public GameObject GolfClub => golfClub;
 
     public string Name => playerName;
 
@@ -67,7 +73,7 @@ public class GolfPlayer : MonoBehaviour
 
     public void IncrementCurrentHits()
     {
-        if(CurrentHits >= 7) return;
+        if(CurrentHits >= SCORE_PER_COURSE_MAX) return;
         TotalHits++;
         CurrentHits++;
     }
@@ -76,6 +82,7 @@ public class GolfPlayer : MonoBehaviour
     {
         SetGolfClubActive(true);
         TurnStarted?.Invoke();
+        HitStarted?.Invoke();
     }
 
     public void StartHit() => HitStarted?.Invoke();

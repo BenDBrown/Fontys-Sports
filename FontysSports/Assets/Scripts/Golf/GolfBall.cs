@@ -10,7 +10,13 @@ public class GolfBall : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.collider.tag != "GolfClub" || hitCooldown) return;
+        if(collision.collider.tag != "GolfClub") return;
+        TriggerHit();
+    }
+
+    public void TriggerHit()
+    {
+        if (hitCooldown) return;
         Debug.Log("golfball hit");
         StartCoroutine(HitCooldown());
         GolfBallHit?.Invoke();
