@@ -1,14 +1,31 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR;
 
 public class MenuManager : MonoBehaviour
 {
-    //The scene needs a MenuManager object with this script attached
-    //and a GameObject with the PauseMenu prefab assigned to pauseMenu in the inspector.
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject gameMenu;
 
     private bool isPaused = false;
+    private bool lastMenuButtonState = false;
+
+    void Update()
+    {
+        // Check Menu button press on the right controller
+        var rightHand = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+        bool menuButtonPressed = false;
+
+        if (rightHand.TryGetFeatureValue(CommonUsages.menuButton, out menuButtonPressed))
+        {
+            // Toggle pause only on button down (not every frame it's held)
+            if (menuButtonPressed && !lastMenuButtonState)
+            {
+                TogglePause();
+            }
+            lastMenuButtonState = menuButtonPressed;
+        }
+    }
 
     public void TogglePause()
     {
@@ -16,9 +33,9 @@ public class MenuManager : MonoBehaviour
         pauseMenu.SetActive(isPaused);
         Time.timeScale = isPaused ? 0 : 1;
 
-        if(gameMenu != null)
+        if (gameMenu != null)
         {
-            gameMenu.SetActive(!isPaused); // Hide game menu when paused
+            gameMenu.SetActive(!isPaused);
         }
     }
 
@@ -31,7 +48,7 @@ public class MenuManager : MonoBehaviour
 
     public void RestartGame()
     {
-        Time.timeScale = 1; // Reset time scale before restart
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -41,7 +58,7 @@ public class MenuManager : MonoBehaviour
         Application.Quit();
 
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false; // For editor
+        UnityEditor.EditorApplication.isPlaying = false;
 #endif
     }
 }
