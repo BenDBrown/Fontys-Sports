@@ -20,21 +20,20 @@ public class GolfSetupManager : MonoBehaviour
     private GameObject MenuObject;
 
     [SerializeField]
-    private int maxNrOfNpcs = 3;
+    private bool includePlayer = true;
 
     private int nrOfNpcs = 0;
 
     private void Start()
     {
-        if(maxNrOfNpcs <= npcPlayerPool.Length) return;
-        Debug.LogWarning($"max nr of npcs was set to a value higher than the available amount of NPC players. Max: {maxNrOfNpcs}, Available: {npcPlayerPool.Length}");
-        maxNrOfNpcs = npcPlayerPool.Length;
+        if(npcPlayerPool.Length <= npcPlayerPool.Length) return;
+        Debug.LogWarning($"max nr of npcs was set to a value higher than the available amount of NPC players. Max: {npcPlayerPool.Length}");
     }
 
     public void IncrementNrOfNpcs()
     { 
         nrOfNpcs++;
-        if(nrOfNpcs > maxNrOfNpcs) nrOfNpcs = maxNrOfNpcs;
+        if(nrOfNpcs > npcPlayerPool.Length) nrOfNpcs = npcPlayerPool.Length;
         nrOfNpcsIndicator.text = nrOfNpcs.ToString();
     }
 
@@ -47,10 +46,16 @@ public class GolfSetupManager : MonoBehaviour
 
     public void StartGame()
     {
-        List<GolfPlayer> chosenPlayers = new() { hostPlayer };
+        List<GolfPlayer> chosenPlayers = new();
+        if (includePlayer) chosenPlayers.Add(hostPlayer);
         for (int i = 0; i < nrOfNpcs; i++)
         {
             chosenPlayers.Add(npcPlayerPool[i]);
+        }
+        if (chosenPlayers.Count <= 0)
+        {
+            Debug.Log("Must have at least one player. Did you mean to have player character disabled?");
+            return;
         }
         MenuObject.SetActive(false);
         golfPlayerManager.StartMatch(chosenPlayers.ToArray());
