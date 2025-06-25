@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine.Events;
 using System.Collections.Generic;
 
-public class RadioButton : MonoBehaviour
+public class RadioButtonsPlaceholder : MonoBehaviour
 {
     [Header("References")]
     [SerializeField]
@@ -26,7 +26,6 @@ public class RadioButton : MonoBehaviour
     void Start()
     {
         canvas = GetComponent<Canvas>();
-
         GenerateRadioButtons();
     }
 
@@ -41,7 +40,7 @@ public class RadioButton : MonoBehaviour
         {
             AudioClip clip = songClips[index];
             string fileName = clip.name;
-
+            Debug.Log($"Creating radio button for: {fileName} at index {index}");
             CreateRadioButton(fileName, index, clip);
         }
     }
@@ -58,21 +57,34 @@ public class RadioButton : MonoBehaviour
             buttonText.text = fileName; // Set the name of the file as the button label
         }
 
-        // Get the Toggle component and assign the listener
+        // Get the Toggle component
         Toggle toggle = radioButton.GetComponent<Toggle>();
+
+        // Find the SelectButtonBG under the toggle
+        Transform selectBGTransform = radioButton.transform.Find("SelectButtonBG");
+        if (selectBGTransform == null)
+        {
+            selectBGTransform = radioButton.transform.Find("Toggle/SelectButtonBG"); // fallback if nested
+        }
+
+        GameObject selectButtonBG = selectBGTransform != null ? selectBGTransform.gameObject : null;
+
+        // Add a listener to the toggle to handle the click event
         if (toggle != null)
         {
-            // Add a listener to the toggle to handle the click event
-            toggle.onValueChanged.AddListener((isOn) => OnRadioButtonClicked(isOn, index));
+            toggle.onValueChanged.AddListener((isOn) =>
+            {
+                // Handle the song logic
+                OnRadioButtonClicked(isOn, index);
+            });
         }
     }
 
     // Called when a radio button is clicked
-    void OnRadioButtonClicked(bool isOn, int index)
+    public void OnRadioButtonClicked(bool isOn, int index)
     {
         if (isOn)
         {
-            // Play the corresponding song based on the selected radio button
             if (index >= 0 && index < songClips.Count)
             {
                 audioSource.clip = songClips[index];  // Set the audio clip to the selected song
@@ -86,10 +98,11 @@ public class RadioButton : MonoBehaviour
         }
     }
 
-    public void OnPlayButtonClicked(){
+    public void OnPlayButtonClicked()
+    {
         canvas.enabled = false;
-        
-        if(audioSource.clip != null)
+
+        if (audioSource.clip != null)
         {
             audioSource.Stop();  // Stop the current song if it's playing
         }
