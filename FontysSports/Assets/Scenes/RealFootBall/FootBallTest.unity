@@ -9335,6 +9335,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4001900739253193356, guid: eb880c2a0c864a845bc48e0861cf8e85, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 32768
+      objectReference: {fileID: 0}
+    - target: {fileID: 4394728764700871688, guid: eb880c2a0c864a845bc48e0861cf8e85, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4394728764700871688, guid: eb880c2a0c864a845bc48e0861cf8e85, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 5359473427387588607, guid: eb880c2a0c864a845bc48e0861cf8e85, type: 3}
       propertyPath: m_Name
       value: RealBall
