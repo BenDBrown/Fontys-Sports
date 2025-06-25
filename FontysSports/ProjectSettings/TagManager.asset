@@ -16,6 +16,7 @@ TagManager:
   - Wall
   - Boundary
   - AITrigger
+  - AIPaddle
   layers:
   - Default
   - TransparentFX

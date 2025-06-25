@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class PingPongAI : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class PingPongAI : MonoBehaviour
 
     private float speed;
 
+    private Vector3 aiStartPos;
+    private Quaternion aiStartRot;
+
     private void Start()
     {
         destination = transform.position;
@@ -31,6 +35,8 @@ public class PingPongAI : MonoBehaviour
             return;
         }
         this.rb = rb;
+        aiStartPos = rb.transform.position;
+        aiStartRot = rb.transform.rotation;
 
     }
     private void Update()
@@ -40,7 +46,7 @@ public class PingPongAI : MonoBehaviour
         // Update tracking destination based on ball speed
         if (ballRb.linearVelocity.magnitude <= ballTrackingSpeedThreshold)
         {
-            destination = new Vector3(ballRb.position.x, ballRb.position.y, transform.position.z);
+            destination = new Vector3(ballRb.position.x, ballRb.position.y, ballRb.position.z);
             speed = trackingSpeed;
         }
 
@@ -63,7 +69,8 @@ public class PingPongAI : MonoBehaviour
     public void onReset()
     {
         ballRb = null;
-        rb.MovePosition(new(transform.position.x, transform.position.y, transform.position.z));
+        rb.transform.position = aiStartPos;
+        rb.transform.rotation = aiStartRot;
     }
 
 }

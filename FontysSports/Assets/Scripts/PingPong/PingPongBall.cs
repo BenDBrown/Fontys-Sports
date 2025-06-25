@@ -6,19 +6,18 @@ public class PingPongBall : MonoBehaviour
 {
     public UnityEvent<Rigidbody> AIreact;
 
-    public UnityEvent scored;
+    public UnityEvent<bool> scored;
 
     public UnityEvent reset;
 
     public UnityEvent AIReset;
 
-    [SerializeField]
-    BoxCollider Table1;
-    [SerializeField]
-    BoxCollider Net;
+    private float aiReturnSpeed = 8f;
 
-    private bool tableHit = false;
-    private bool wallHit = false;
+    private bool playerpoint;
+    private bool isServe = true;
+    private bool table1Hit = false;
+    private bool table2Hit = false;
 
     private Rigidbody rb;
     void Start()
@@ -34,30 +33,62 @@ public class PingPongBall : MonoBehaviour
     {
         if (trigger.CompareTag("Table1"))
         {
-            if (tableHit == true)
+            if (isServe && !table1Hit)
+            {
+                table1Hit = true;
+            }
+            else if (table1Hit && isServe)
             {
                 ResetTriggers();
                 reset.Invoke();
-                Debug.Log("Table hit twice");
             }
-            else
+            else if (playerpoint && !table1Hit)
             {
-                Debug.Log("Table hit");
-                tableHit = true;
+                playerpoint = false;
+                table1Hit = true;
+                table2Hit = false;
+            }
+            else if (!playerpoint && table1Hit)
+            {
+                scored.Invoke(playerpoint);
+                ResetTriggers();
+                reset.Invoke();
             }
         }
-        else if (trigger.CompareTag("Wall"))
+        else if (trigger.CompareTag("Table2"))
         {
-            if (tableHit && !wallHit)
+            if (table1Hit && isServe)
             {
-                wallHit = true;
-                Debug.Log("wall hit after table");
-                scored.Invoke();
+                playerpoint = true;
+                table2Hit = true;
+                table1Hit = false;
+                isServe = false;
+            }
+            else if (!table1Hit && isServe)
+            {
                 ResetTriggers();
+                reset.Invoke();
+            }
+            else if (playerpoint && table2Hit)
+            {
+                scored.Invoke(playerpoint);
+                ResetTriggers();
+                reset.Invoke();
+            }
+            else if (!playerpoint && !table2Hit)
+            {
+                playerpoint = true;
+                table2Hit = true;
             }
         }
         else if (trigger.CompareTag("Boundary"))
         {
+            if (!isServe)
+            {
+                scored.Invoke(playerpoint);
+                ResetTriggers();
+                reset.Invoke();
+            }
             Debug.Log("Boundary hit");
             ResetTriggers();
             reset.Invoke();
@@ -76,9 +107,28 @@ public class PingPongBall : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("AIPaddle"))
+        {
+            // Get contact point
+            ContactPoint contact = collision.contacts[0];
+
+            // Get the forward direction of the AI paddle (assumes it is hitting toward the player)
+            Vector3 paddleForward = collision.transform.forward;
+
+            // Slightly adjust direction based on where it hit the paddle
+            Vector3 direction = (paddleForward + contact.normal).normalized;
+
+            // Set ball velocity
+            rb.AddForce(direction * aiReturnSpeed);
+        }
+    }
+
     private void ResetTriggers()
     {
-        tableHit = false; ;
-        wallHit = false;
+        table1Hit = false; ;
+        table2Hit = false;
+        isServe = true;
     }
 }
