@@ -13,10 +13,10 @@ public class MenuManager : MonoBehaviour
     void Update()
     {
         // Check Menu button press on the right controller
-        var rightHand = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+        var leftHand = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
         bool menuButtonPressed = false;
 
-        if (rightHand.TryGetFeatureValue(CommonUsages.menuButton, out menuButtonPressed))
+        if (leftHand.TryGetFeatureValue(CommonUsages.menuButton, out menuButtonPressed))
         {
             // Toggle pause only on button down (not every frame it's held)
             if (menuButtonPressed && !lastMenuButtonState)
@@ -44,6 +44,15 @@ public class MenuManager : MonoBehaviour
         isPaused = false;
         pauseMenu.SetActive(false);
         Time.timeScale = 1;
+
+        if (gameMenu != null)
+        {
+            gameMenu.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("Game menu not found. Please assign it in the inspector.");
+        }
     }
 
     public void RestartGame()
