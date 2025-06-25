@@ -1,12 +1,16 @@
 using System.Collections;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class GolfBall : MonoBehaviour
 {
     public UnityEvent GolfBallHit = new();
+    public bool PoseInvalid = false;
 
     private bool hitCooldown = false;
+
+    public Pose PrevPose { get; private set; }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -20,6 +24,7 @@ public class GolfBall : MonoBehaviour
         Debug.Log("golfball hit");
         StartCoroutine(HitCooldown());
         GolfBallHit?.Invoke();
+        PrevPose = transform.GetWorldPose();
     }
 
     private IEnumerator HitCooldown()
