@@ -57,17 +57,31 @@ public class RadioButtonsPlaceholder : MonoBehaviour
             buttonText.text = fileName; // Set the name of the file as the button label
         }
 
-        // Get the Toggle component and assign the listener
+        // Get the Toggle component
         Toggle toggle = radioButton.GetComponent<Toggle>();
+
+        // Find the SelectButtonBG under the toggle
+        Transform selectBGTransform = radioButton.transform.Find("SelectButtonBG");
+        if (selectBGTransform == null)
+        {
+            selectBGTransform = radioButton.transform.Find("Toggle/SelectButtonBG"); // fallback if nested
+        }
+
+        GameObject selectButtonBG = selectBGTransform != null ? selectBGTransform.gameObject : null;
+
+        // Add a listener to the toggle to handle the click event
         if (toggle != null)
         {
-            // Add a listener to the toggle to handle the click event
-            toggle.onValueChanged.AddListener((isOn) => OnRadioButtonClicked(isOn, index));
+            toggle.onValueChanged.AddListener((isOn) =>
+            {
+                // Handle the song logic
+                OnRadioButtonClicked(isOn, index);
+            });
         }
     }
 
     // Called when a radio button is clicked
-    void OnRadioButtonClicked(bool isOn, int index)
+    public void OnRadioButtonClicked(bool isOn, int index)
     {
         if (isOn)
         {

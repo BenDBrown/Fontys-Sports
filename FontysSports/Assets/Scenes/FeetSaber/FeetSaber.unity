@@ -2548,7 +2548,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5309440559043780099, guid: dfe34373e6dca5a43988ee196970b9af, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.06
+      value: -3.171447
       objectReference: {fileID: 0}
     - target: {fileID: 5309440559043780099, guid: dfe34373e6dca5a43988ee196970b9af, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2568,11 +2568,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5309440559043780099, guid: dfe34373e6dca5a43988ee196970b9af, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -3.53
+      value: -6.05
       objectReference: {fileID: 0}
     - target: {fileID: 5309440559043780099, guid: dfe34373e6dca5a43988ee196970b9af, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.6
+      value: 0.6600691
       objectReference: {fileID: 0}
     - target: {fileID: 5309440559043780099, guid: dfe34373e6dca5a43988ee196970b9af, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2642,6 +2642,26 @@ PrefabInstance:
       propertyPath: m_Colors.m_HighlightedColor.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7191982707050094305, guid: dfe34373e6dca5a43988ee196970b9af, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7191982707050094305, guid: dfe34373e6dca5a43988ee196970b9af, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7191982707050094305, guid: dfe34373e6dca5a43988ee196970b9af, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 595706396}
+    - target: {fileID: 7191982707050094305, guid: dfe34373e6dca5a43988ee196970b9af, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7191982707050094305, guid: dfe34373e6dca5a43988ee196970b9af, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8986893416207870962, guid: dfe34373e6dca5a43988ee196970b9af, type: 3}
       propertyPath: m_Name
       value: FeetSaberCanvas
@@ -2654,7 +2674,8 @@ PrefabInstance:
     - {fileID: 5187778844749385139, guid: dfe34373e6dca5a43988ee196970b9af, type: 3}
     - {fileID: 4027857385447851232, guid: dfe34373e6dca5a43988ee196970b9af, type: 3}
     - {fileID: 152182005720250007, guid: dfe34373e6dca5a43988ee196970b9af, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4998801602377598257, guid: dfe34373e6dca5a43988ee196970b9af, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8986893416207870962, guid: dfe34373e6dca5a43988ee196970b9af, type: 3}
@@ -3153,7 +3174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 7193114584529240391}
-  gameMenu: {fileID: 0}
+  gameMenu: {fileID: 595706396}
 --- !u!4 &1522050874
 Transform:
   m_ObjectHideFlags: 0
