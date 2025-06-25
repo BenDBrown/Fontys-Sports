@@ -1002,14 +1002,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftHandHoldingPosition: {fileID: 5433473494750602456}
   clubHeadTargetPos: {fileID: 6807518565198009958}
-  clubHeadPos: {fileID: 8521513241849064146}
-  rightHandOffset: {fileID: 7843431198397821889}
   leftHandOffset: {fileID: 3310402991736833169}
   hitDelay: 2
   hitDuration: 1
-  hitPower: 100
+  hitPower: 150
   hitPowerRandomness: 20
-  hitDirectionRandomness: 10
+  hitDirectionRandomness: 2
 --- !u!1 &7376763602861234423
 GameObject:
   m_ObjectHideFlags: 0
@@ -1552,10 +1550,5 @@ Transform:
 --- !u!1 &8262984008808234948 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3022474476115163117, guid: 68b0aeddfe1521e4e9abfec9203790e3, type: 3}
-  m_PrefabInstance: {fileID: 6583691634854594601}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &8521513241849064146 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3251466499789644539, guid: 68b0aeddfe1521e4e9abfec9203790e3, type: 3}
   m_PrefabInstance: {fileID: 6583691634854594601}
   m_PrefabAsset: {fileID: 0}

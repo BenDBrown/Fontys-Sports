@@ -8,11 +8,9 @@ using UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation;
 
 public class GolfPlayerManager : MonoBehaviour
 {
-    public UnityEvent<int> PlayerScoredWithHits = new();
+    public UnityEvent<GolfPlayerScoreInfo[]> PlayerScoreChanged = new();
 
-    public UnityEvent<GolfPlayerScoreInfo[]> LevelFinished = new();
-
-    public UnityEvent<GolfPlayerScoreInfo[]> GameFinished = new();
+    public UnityEvent GameFinished = new();
 
     [SerializeField]
     private Rigidbody golfBallRigid;
@@ -47,6 +45,8 @@ public class GolfPlayerManager : MonoBehaviour
     
     private bool checkingGolfBallSpeed = false;
 
+    private bool playing = false;
+
     private void Start()
     {
         golfBall = golfBallRigid.GetComponent<GolfBall>();
@@ -63,8 +63,8 @@ public class GolfPlayerManager : MonoBehaviour
                 PlayerScored();
                 return;
             }
-            if (!golfBall.PoseInvalid) PrepPlayerForNextHit();
-            else ResetBallInvalidPose();
+            if (golfBall.PoseInvalid) ResetBallInvalidPose();
+            PrepPlayerForNextHit();
         }
     }
 
@@ -73,7 +73,7 @@ public class GolfPlayerManager : MonoBehaviour
         Players = players;
         currentLevelIndex = 0;
         currentPlayerIndex = 0;
-        CurrentLevel.SetActive(true);
+        playing = true;
         foreach (GolfPlayer player in Players)
         { 
             player.ResetTotalHits();
@@ -85,6 +85,7 @@ public class GolfPlayerManager : MonoBehaviour
             }
             ai.SetGolfballInfo(golfBallRigid, GetGolfballHeightDelta);
         }
+        PlayerScoreChanged?.Invoke(GetPlayerScores());
         ResetBallLocation();
         PrepPlayerForNextHit();
         CurrentPlayer.StartTurn(CurrentLevel);
@@ -92,14 +93,16 @@ public class GolfPlayerManager : MonoBehaviour
 
     public void PlayerScored()
     {
+        if(!playing) return;
         StopAllCoroutines();
-        PlayerScoredWithHits?.Invoke(CurrentPlayer.CurrentHits);
+        PlayerScoreChanged?.Invoke(GetPlayerScores());
         NextTurn();
     }
 
     public void IncrementGolfHits()
     {
         CurrentPlayer.IncrementCurrentHits();
+        PlayerScoreChanged?.Invoke(GetPlayerScores());
         StartCoroutine(StartTeleportCheckAfterDelay(teleportToBallMinimumDelay));
     }
 
@@ -113,7 +116,11 @@ public class GolfPlayerManager : MonoBehaviour
         if (currentPlayerIndex + 1 >= Players.Length)
         {
             currentPlayerIndex = 0;
-            if(!TryPlayNextLevel()) return;
+            if (!TryPlayNextLevel())
+            {
+                playing = false;
+                return;
+            }
         }
         else
         {
@@ -126,19 +133,16 @@ public class GolfPlayerManager : MonoBehaviour
 
     private bool TryPlayNextLevel()
     {
-        CurrentLevel.SetActive(false);
         if (currentLevelIndex + 1 >= levelArray.Length)
         {
-            GameFinished?.Invoke(GetPlayerScores());
+            GameFinished?.Invoke();
             checkingGolfBallSpeed = false;
             return false;
         }
         else 
         {
             currentLevelIndex++;
-            LevelFinished?.Invoke(GetPlayerScores());
             ResetCurrentHits();
-            CurrentLevel.SetActive(true);
             ResetBallLocation();
             initialGolfballHeight = golfBallRigid.position.y;
             return true;
@@ -151,6 +155,7 @@ public class GolfPlayerManager : MonoBehaviour
         { 
             golfPlayer.ResetCurrentHits();
         }
+        PlayerScoreChanged?.Invoke(GetPlayerScores());
     }
 
     private GolfPlayerScoreInfo[] GetPlayerScores()

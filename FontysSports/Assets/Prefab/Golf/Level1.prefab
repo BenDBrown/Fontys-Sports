@@ -471,6 +471,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: hole-square
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e310eeccc7b7bce45b75389c429de579, type: 3}
+      propertyPath: m_TagString
+      value: Goal
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

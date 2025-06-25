@@ -21,7 +21,6 @@ public class GolfBall : MonoBehaviour
     public void TriggerHit()
     {
         if (hitCooldown) return;
-        Debug.Log("golfball hit");
         StartCoroutine(HitCooldown());
         GolfBallHit?.Invoke();
         PrevPose = transform.GetWorldPose();

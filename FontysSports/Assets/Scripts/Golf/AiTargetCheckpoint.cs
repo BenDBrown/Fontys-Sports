@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class AiTargetCheckpoint : MonoBehaviour
 {
-    public delegate void GolfBallCollisionEventHandler();
+    public delegate void GolfBallCollisionEventHandler(AiTargetCheckpoint sender);
 
     public GolfBallCollisionEventHandler GolfBallEntered;
+
+    public GolfBallCollisionEventHandler GolfBallExited;
 
     // the position the AI will aim for when in this checkpoint
     [SerializeField]
@@ -15,7 +17,13 @@ public class AiTargetCheckpoint : MonoBehaviour
     private void OnTriggerEnter(Collider col)
     {
         if (col.tag != "Ball") return;
-        GolfBallEntered?.Invoke();
+        GolfBallEntered?.Invoke(this);
+    }
+
+    private void OnTriggerExit(Collider col)
+    {
+        if (col.tag != "Ball") return;
+        GolfBallExited?.Invoke(this);
     }
 
 }

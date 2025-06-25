@@ -48,6 +48,8 @@ public class GolfAI : MonoBehaviour
 
     private Vector3? nullableCurrentTargetPos = null;
 
+    private List<AiTargetCheckpoint> currentlyCollidingCheckpoints = new();
+
     private float golfballHeightDelta => golfBallHeightDeltaFunc.Invoke();
 
     private Func<float> golfBallHeightDeltaFunc;
@@ -78,7 +80,7 @@ public class GolfAI : MonoBehaviour
     {
         if (!rb.TryGetComponent(out GolfBall ball)) return;
         splineAnimation.Completed -= RestartHit;
-        float randomizedHitPower = (hitPower + UnityEngine.Random.Range(-hitPowerRandomness, hitDirectionRandomness)) * currentTargetPos.magnitude;
+        float randomizedHitPower = (hitPower + UnityEngine.Random.Range(-hitPowerRandomness, hitDirectionRandomness)) * (currentTargetPos - transform.position).magnitude;
         Vector3 randomizedHitDirection = Quaternion.Euler(0, UnityEngine.Random.Range(-hitDirectionRandomness, hitDirectionRandomness), 0) * -transform.TransformDirection(Vector3.forward);
         rb.AddForce(randomizedHitDirection * randomizedHitPower);
         ball.TriggerHit();
@@ -151,7 +153,8 @@ public class GolfAI : MonoBehaviour
         List<AiTargetCheckpoint> checkpoints = new();
         foreach (AiTargetCheckpoint checkpoint in currentGolfLevel.GetComponentsInChildren<AiTargetCheckpoint>())
         {
-            checkpoint.GolfBallEntered += () => SetCurrentTarget(checkpoint);
+            checkpoint.GolfBallEntered += SetCurrentTarget;
+            checkpoint.GolfBallExited += RemoveCheckpointFromCollisions;
         }
     }
 
@@ -164,10 +167,25 @@ public class GolfAI : MonoBehaviour
             {
                 checkpoint.GolfBallEntered -= (AiTargetCheckpoint.GolfBallCollisionEventHandler)d;
             }
+            foreach (Delegate d in checkpoint.GolfBallExited.GetInvocationList())
+            {
+                checkpoint.GolfBallExited -= (AiTargetCheckpoint.GolfBallCollisionEventHandler)d;
+            }
         }
     }
 
     private void SetCurrentTarget(AiTargetCheckpoint checkpoint) => nullableCurrentTargetPos = checkpoint.Target;
+
+    private void RemoveCheckpointFromCollisions(AiTargetCheckpoint checkpoint)
+    { 
+        if(currentlyCollidingCheckpoints.Contains(checkpoint)) currentlyCollidingCheckpoints.Remove(checkpoint);
+        if (currentlyCollidingCheckpoints.Count <= 0)
+        {
+            nullableCurrentTargetPos = null;
+            return;
+        }
+        SetCurrentTarget(currentlyCollidingCheckpoints[^1]);
+    }
 
     private Vector3 GetCurrentTargetPos()
     { 
