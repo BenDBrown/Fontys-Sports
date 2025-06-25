@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2993891597572134917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1332449006151142697}
+  m_Layer: 0
+  m_Name: GolfBallSpawnLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1332449006151142697
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2993891597572134917}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.1103, z: -0.11625242}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 919432614129864816}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4731094436190664231
 GameObject:
   m_ObjectHideFlags: 0
@@ -15,7 +46,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &919432614129864816
 Transform:
   m_ObjectHideFlags: 0
@@ -33,6 +64,7 @@ Transform:
   - {fileID: 5507723722654491360}
   - {fileID: 9139243555490881860}
   - {fileID: 1575898946596844404}
+  - {fileID: 1332449006151142697}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1320696823277180063
@@ -322,18 +354,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 919432614129864816}
     m_Modifications:
     - target: {fileID: 4338479828738731610, guid: f72ced0e949da20448a99ebea19f1962, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4338479828738731610, guid: f72ced0e949da20448a99ebea19f1962, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4338479828738731610, guid: f72ced0e949da20448a99ebea19f1962, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4338479828738731610, guid: f72ced0e949da20448a99ebea19f1962, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -373,17 +393,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4338479828738731610, guid: f72ced0e949da20448a99ebea19f1962, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5027890253258475125, guid: f72ced0e949da20448a99ebea19f1962, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6867649085479797309, guid: f72ced0e949da20448a99ebea19f1962, type: 3}
       propertyPath: m_Name
       value: GolfHole
+      objectReference: {fileID: 0}
+    - target: {fileID: 7826599088106439747, guid: f72ced0e949da20448a99ebea19f1962, type: 3}
+      propertyPath: Hit.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7826599088106439747, guid: f72ced0e949da20448a99ebea19f1962, type: 3}
+      propertyPath: Hit.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7826599088106439747, guid: f72ced0e949da20448a99ebea19f1962, type: 3}
+      propertyPath: Hit.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7826599088106439747, guid: f72ced0e949da20448a99ebea19f1962, type: 3}
+      propertyPath: Hit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayerScored
+      objectReference: {fileID: 0}
+    - target: {fileID: 7826599088106439747, guid: f72ced0e949da20448a99ebea19f1962, type: 3}
+      propertyPath: Hit.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GolfPlayerManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7826599088106439747, guid: f72ced0e949da20448a99ebea19f1962, type: 3}
+      propertyPath: Hit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
