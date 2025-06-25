@@ -1,10 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class WindMillReset : MonoBehaviour
+public class WindMillBladesTrigger : MonoBehaviour
 {
-    [SerializeField] private GolfBallReset golfBall;
-    [SerializeField] private Transform tempRespawnPos;
+    public UnityEvent BallStuck;
+
+    [SerializeField] private Rigidbody golfBallRigid;
+    [SerializeField] private float bladeHitResetDelay = 1;
     private int hitCount = 0;
     private readonly int hitCountLimit = 2;
 
@@ -18,14 +21,16 @@ public class WindMillReset : MonoBehaviour
         if (++hitCount >= hitCountLimit)
         {
             hitCount = 0;
-            StartCoroutine(golfBall.BallReset(tempRespawnPos.position));
+            golfBallRigid.linearVelocity = Vector3.zero;
+            golfBallRigid.angularVelocity = Vector3.zero;
+            BallStuck?.Invoke();
         }
         else StartCoroutine(HitCountReset());
     }
 
     private IEnumerator HitCountReset()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(bladeHitResetDelay);
         hitCount = 0;
     }
 }
