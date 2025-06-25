@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GolfBallPosInvalidTrigger : MonoBehaviour
+public class GolfBallPoseInvalidTrigger : MonoBehaviour
 {
     [SerializeField] private GolfBall golfBall;
 
