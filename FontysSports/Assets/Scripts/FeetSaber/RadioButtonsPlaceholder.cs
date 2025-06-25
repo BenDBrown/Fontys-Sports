@@ -1,18 +1,17 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using UnityEditor;
 using UnityEngine.Events;
 using System.Collections.Generic;
 
-public class RadioButton : MonoBehaviour
+public class RadioButtonsPlaceholder : MonoBehaviour
 {
     [Header("References")]
     [SerializeField]
     private GameObject radioButtonPrefab;  // Prefab for radio buttons (UI Toggle)
-    // [SerializeField]
-    // private Image selectButtonPrefab;  // Prefab for the select button (RadioButton)
+    [SerializeField]
+    private Image selectButtonPrefab;  // Prefab for the select button (RadioButton)
     [SerializeField]
     private Transform parentPanel;         // Parent UI Panel to hold the radio buttons
     [SerializeField]
@@ -23,23 +22,10 @@ public class RadioButton : MonoBehaviour
     private Spawner spawner;
     [SerializeField]
     private List<AudioClip> songClips = new List<AudioClip>();  // List of audio clips
-    private TextMeshProUGUI[] texts;  // Array to hold TextMeshProUGUI components for labels
-    private GameObject radioButton;
-    
+
     void Start()
     {
-        // Automatically find references
         canvas = GetComponent<Canvas>();
-        if (canvas == null)
-            canvas = GetComponentInChildren<Canvas>();
-
-        parentPanel = GameObject.Find("Radiobutton Container")?.transform;
-        if (parentPanel == null)
-            Debug.LogError("Could not find 'Radiobutton Container'");
-
-        if (audioSource == null)
-            audioSource = FindObjectOfType<AudioSource>();
-
         GenerateRadioButtons();
     }
 
@@ -54,36 +40,29 @@ public class RadioButton : MonoBehaviour
         {
             AudioClip clip = songClips[index];
             string fileName = clip.name;
-
+            Debug.Log($"Creating radio button for: {fileName} at index {index}");
             CreateRadioButton(fileName, index, clip);
         }
     }
 
-    void CreateRadioButton(string songName, int index, AudioClip clip)
+    void CreateRadioButton(string fileName, int index, AudioClip clip)
     {
+        // Instantiate the radio button prefab
         GameObject radioButton = Instantiate(radioButtonPrefab, parentPanel);
 
-        var texts = radioButton.GetComponentsInChildren<TextMeshProUGUI>(true);
-
-        foreach (var text in texts)
+        // Set the label of the radio button
+        Text buttonText = radioButton.GetComponentInChildren<Text>();
+        if (buttonText != null)
         {
-            Debug.Log("Found TMP text: " + text.gameObject.name);
-            if (text.gameObject.name == "Label")
-            {
-                text.text = songName;
-                text.ForceMeshUpdate();
-                Debug.Log("Set text to: " + songName);
-                break;
-            }
+            buttonText.text = fileName; // Set the name of the file as the button label
         }
 
-        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)radioButton.transform);
-
+        // Get the Toggle component and assign the listener
         Toggle toggle = radioButton.GetComponent<Toggle>();
         if (toggle != null)
         {
-            int capturedIndex = index;
-            toggle.onValueChanged.AddListener((isOn) => OnRadioButtonClicked(isOn, capturedIndex));
+            // Add a listener to the toggle to handle the click event
+            toggle.onValueChanged.AddListener((isOn) => OnRadioButtonClicked(isOn, index));
         }
     }
 
@@ -92,23 +71,22 @@ public class RadioButton : MonoBehaviour
     {
         if (isOn)
         {
-            // Play the corresponding song based on the selected radio button
             if (index >= 0 && index < songClips.Count)
             {
                 audioSource.clip = songClips[index];  // Set the audio clip to the selected song
                 audioSource.Play();  // Play the audio
-                //selectButtonPrefab.enabled = true; // Enable the select button if the radio button is selected
+                selectButtonPrefab.enabled = true; // Enable the select button if the radio button is selected
             }
         }
-        // else
-        // {
-        //     selectButtonPrefab.enabled = false;  // Disable the select button if the radio button is not selected
-        // }
+        else
+        {
+            selectButtonPrefab.enabled = false;  // Disable the select button if the radio button is not selected
+        }
     }
 
     public void OnPlayButtonClicked()
     {
-        parentPanel.gameObject.SetActive(false);
+        canvas.enabled = false;
 
         if (audioSource.clip != null)
         {
