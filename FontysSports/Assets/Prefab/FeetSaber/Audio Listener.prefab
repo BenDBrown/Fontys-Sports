@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6761750960144195503}
   - component: {fileID: 5126088684576536647}
   - component: {fileID: 3634335018520691188}
-  - component: {fileID: 5078719264167093131}
   m_Layer: 0
   m_Name: Audio Listener
   m_TagString: Untagged
@@ -416,11 +415,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5baf1c57abdfff344b5d9c7b0c3cbd06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!81 &5078719264167093131
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3663202270004644944}
-  m_Enabled: 1
+  fixedPosition: {x: 0, y: 0, z: 0}
+  fixedRotation: {x: 0, y: 0, z: 0, w: 0}
+  fixedScale: {x: 0, y: 0, z: 0}
