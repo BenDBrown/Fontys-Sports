@@ -11,8 +11,8 @@ public class RadioButton : MonoBehaviour
     [Header("References")]
     [SerializeField]
     private GameObject radioButtonPrefab;  // Prefab for radio buttons (UI Toggle)
-    // [SerializeField]
-    // private Image selectButtonPrefab;  // Prefab for the select button (RadioButton)
+    [SerializeField]
+    private Image selectButtonPrefab;  // Prefab for the select button (RadioButton)
     [SerializeField]
     private Transform parentPanel;         // Parent UI Panel to hold the radio buttons
     [SerializeField]
@@ -97,13 +97,13 @@ public class RadioButton : MonoBehaviour
             {
                 audioSource.clip = songClips[index];  // Set the audio clip to the selected song
                 audioSource.Play();  // Play the audio
-                //selectButtonPrefab.enabled = true; // Enable the select button if the radio button is selected
+                selectButtonPrefab.enabled = true; // Enable the select button if the radio button is selected
             }
         }
-        // else
-        // {
-        //     selectButtonPrefab.enabled = false;  // Disable the select button if the radio button is not selected
-        // }
+        else
+        {
+            selectButtonPrefab.enabled = false;  // Disable the select button if the radio button is not selected
+        }
     }
 
     public void OnPlayButtonClicked()
