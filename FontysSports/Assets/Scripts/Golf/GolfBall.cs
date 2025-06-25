@@ -10,8 +10,7 @@ public class GolfBall : MonoBehaviour
 
     private bool hitCooldown = false;
 
-    public Pose PrevPose { get { return prevPose; } }
-    private Pose prevPose;
+    public Pose PrevPose { get; private set; }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -25,7 +24,7 @@ public class GolfBall : MonoBehaviour
         Debug.Log("golfball hit");
         StartCoroutine(HitCooldown());
         GolfBallHit?.Invoke();
-        prevPose = transform.GetWorldPose();
+        PrevPose = transform.GetWorldPose();
     }
 
     private IEnumerator HitCooldown()
