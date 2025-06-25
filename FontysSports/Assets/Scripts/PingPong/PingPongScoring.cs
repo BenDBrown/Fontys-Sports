@@ -10,6 +10,10 @@ public class PingPongScoring : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI player1ScoreDisplay;
+    [SerializeField] 
+    private TextMeshProUGUI player2ScoreDisplay;
+    [SerializeField]
+    private TextMeshProUGUI winnertext;
     [SerializeField]
     private PingPongBall pingPongBall;
 
@@ -18,12 +22,6 @@ public class PingPongScoring : MonoBehaviour
 
     private Vector3 ballStartPos;
     private Quaternion ballStartRot;
-
-    public void Score()
-    {
-        player1Score++;
-        player1ScoreDisplay.text = player1Score.ToString();
-    }
 
     void Start()
     {
@@ -51,9 +49,31 @@ public class PingPongScoring : MonoBehaviour
         ballObj.transform.rotation = ballStartRot;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void onScore(bool player)
     {
-        
+        if (player)
+        {
+            player1Score++;
+            updateUI();
+        }
+        else
+        {
+            player2Score++;
+            updateUI();
+        }
+    }
+
+    private void updateUI()
+    {
+        player1ScoreDisplay.text = player1Score.ToString();
+        player2ScoreDisplay.text = player2Score.ToString();
+        if (player1Score == 11)
+        {
+            winnertext.text = "You win!";
+        }
+        else if (player2Score == 11)
+        {
+            winnertext.text = "The AI wins!";
+        }
     }
 }
