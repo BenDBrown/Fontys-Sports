@@ -9,6 +9,7 @@ public class MenuManager : MonoBehaviour
 
     private bool isPaused = false;
     private bool lastMenuButtonState = false;
+    private SceneLoader sceneLoader;
 
     void Update()
     {
@@ -59,6 +60,12 @@ public class MenuManager : MonoBehaviour
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void LoadMainMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void QuitGame()
