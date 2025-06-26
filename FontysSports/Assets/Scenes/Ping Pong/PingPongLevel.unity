@@ -418,14 +418,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 1444920976}
     m_Modifications:
     - target: {fileID: 3501996268477701662, guid: 80c88ba82df5fd9428e5a0f2253bfa97, type: 3}
-      propertyPath: leftIAR
-      value: 
-      objectReference: {fileID: -2562941478296515153, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-    - target: {fileID: 3501996268477701662, guid: 80c88ba82df5fd9428e5a0f2253bfa97, type: 3}
-      propertyPath: rightIAR
-      value: 
-      objectReference: {fileID: -2562941478296515153, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-    - target: {fileID: 3501996268477701662, guid: 80c88ba82df5fd9428e5a0f2253bfa97, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
