@@ -67,6 +67,7 @@ public class GolfPlayer : MonoBehaviour
                 }
                 else InitialHeight = xRDeviceSimulator.cameraTransform.position.y;
                 Debug.Log("Using XrDeviceSimulator Camera as headset position");
+                return;
             }
             InitialHeight = devicePos.y;
         }
