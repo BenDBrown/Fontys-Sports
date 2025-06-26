@@ -4,15 +4,14 @@ using UnityEngine.Events;
 
 public class PingPongBall : MonoBehaviour
 {
+    [Header("Events")]
     public UnityEvent<Rigidbody> AIreact;
-
     public UnityEvent<bool> scored;
-
     public UnityEvent reset;
-
     public UnityEvent AIReset;
 
-    private float aiReturnSpeed = 8f;
+    [Header("Settings")]
+    public float aiReturnSpeed = 8f;
 
     private bool playerpoint;
     private bool isServe = true;
@@ -20,13 +19,16 @@ public class PingPongBall : MonoBehaviour
     private bool table2Hit = false;
 
     private Rigidbody rb;
+    private Vector3 startPosition;
+
     void Start()
     {
-        if (!TryGetComponent(out Rigidbody rb))
+        if (!TryGetComponent(out rb))
         {
-            Debug.LogError("ball didn't have a rigidbody attached");
+            Debug.LogError("Ball didn't have a Rigidbody attached.");
         }
-        this.rb = rb;
+
+        startPosition = transform.position; // Save original spawn point
     }
 
     private void OnTriggerEnter(Collider trigger)
@@ -39,8 +41,7 @@ public class PingPongBall : MonoBehaviour
             }
             else if (table1Hit && isServe)
             {
-                ResetTriggers();
-                reset.Invoke();
+                ResetRound(false);
             }
             else if (playerpoint && !table1Hit)
             {
@@ -51,8 +52,7 @@ public class PingPongBall : MonoBehaviour
             else if (!playerpoint && table1Hit)
             {
                 scored.Invoke(playerpoint);
-                ResetTriggers();
-                reset.Invoke();
+                ResetRound(true);
             }
         }
         else if (trigger.CompareTag("Table2"))
@@ -66,14 +66,12 @@ public class PingPongBall : MonoBehaviour
             }
             else if (!table1Hit && isServe)
             {
-                ResetTriggers();
-                reset.Invoke();
+                ResetRound(false);
             }
             else if (playerpoint && table2Hit)
             {
                 scored.Invoke(playerpoint);
-                ResetTriggers();
-                reset.Invoke();
+                ResetRound(true);
             }
             else if (!playerpoint && !table2Hit)
             {
@@ -83,16 +81,15 @@ public class PingPongBall : MonoBehaviour
         }
         else if (trigger.CompareTag("Boundary"))
         {
+            Debug.Log("Boundary hit");
+
             if (!isServe)
             {
                 scored.Invoke(playerpoint);
-                ResetTriggers();
-                reset.Invoke();
             }
-            Debug.Log("Boundary hit");
-            ResetTriggers();
-            reset.Invoke();
-        } 
+
+            ResetRound(true);
+        }
         else if (trigger.CompareTag("AITrigger"))
         {
             AIreact?.Invoke(rb);
@@ -101,33 +98,41 @@ public class PingPongBall : MonoBehaviour
 
     private void OnTriggerExit(Collider trigger)
     {
-        if(trigger.CompareTag("AITrigger"))
+        if (trigger.CompareTag("AITrigger"))
         {
-            AIReset.Invoke();
+            AIReset?.Invoke();
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("AIPaddle"))
         {
-            // Get contact point
             ContactPoint contact = collision.contacts[0];
-
-            // Get the forward direction of the AI paddle (assumes it is hitting toward the player)
             Vector3 paddleForward = collision.transform.forward;
-
-            // Slightly adjust direction based on where it hit the paddle
             Vector3 direction = (paddleForward + contact.normal).normalized;
 
-            // Set ball velocity
-            rb.AddForce(direction * aiReturnSpeed);
+            rb.linearVelocity = Vector3.zero;
+            rb.AddForce(direction * aiReturnSpeed, ForceMode.VelocityChange);
+        }
+    }
+
+    private void ResetRound(bool doRespawn)
+    {
+        ResetTriggers();
+        reset.Invoke();
+
+        if (doRespawn)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            transform.position = startPosition;
         }
     }
 
     private void ResetTriggers()
     {
-        table1Hit = false; ;
+        table1Hit = false;
         table2Hit = false;
         isServe = true;
     }
