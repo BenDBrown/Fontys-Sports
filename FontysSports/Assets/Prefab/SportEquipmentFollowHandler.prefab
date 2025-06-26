@@ -248,9 +248,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 090c8154974c6154ab52eb2864eeb8da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xrRigSimActive: 0
   rightControllerActive: 1
   sportEquipment: {fileID: 0}
-  leftIAR: {fileID: -4758839538258060184, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  leftIAR: {fileID: -9000350738661745655, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   leftControllerFollower: {fileID: 1990686428417568906}
-  rightIAR: {fileID: 1670121928723001259, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  rightIAR: {fileID: 1211109876234586500, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   rightControllerFollower: {fileID: 3321867109164222534}
