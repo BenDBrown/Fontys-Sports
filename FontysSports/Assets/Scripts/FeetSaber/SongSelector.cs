@@ -1,44 +1,91 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor; // Only required for AssetDatabase (optional for loading files at runtime)
 using System.Collections.Generic;
 
 public class SongSelector : MonoBehaviour
 {
-    public ToggleGroup toggleGroup;  // Reference to the ToggleGroup containing all the radio buttons
-    public AudioSource audioSource;  // Reference to the AudioSource that will play the songs
+    [Header("UI References")]
+    [Tooltip("Parent GameObject with ToggleGroup component")]
+    public GameObject toggleGroupObject;
 
-    // List of songs you want to use in your game (can be manually assigned or loaded dynamically)
+    [Tooltip("Toggle prefab with Toggle component and a child Text component for label")]
+    public Toggle togglePrefab;
+
+    [Header("Audio")]
+    [Tooltip("AudioSource used to play selected songs")]
+    public AudioSource audioSource;
+
+    [Header("Songs")]
+    [Tooltip("Assign AudioClips manually here")]
     public List<AudioClip> songClips = new List<AudioClip>();
+
+    private ToggleGroup toggleGroup;
 
     void Start()
     {
-        songClips = LoadSongs();  // Load your song clips if using AssetDatabase or Resources folder
-
-        // Add listeners to each toggle in the ToggleGroup
-        foreach (Toggle toggle in toggleGroup.ActiveToggles())
+        if (toggleGroupObject == null)
         {
-            toggle.onValueChanged.AddListener((isOn) => OnToggleChanged(toggle, isOn));
+            Debug.LogError("Toggle Group Object is not assigned!");
+            return;
         }
+
+        toggleGroup = toggleGroupObject.GetComponent<ToggleGroup>();
+        if (toggleGroup == null)
+        {
+            Debug.LogError("Toggle Group Object does not have a ToggleGroup component!");
+            return;
+        }
+
+        if (togglePrefab == null)
+        {
+            Debug.LogError("Toggle Prefab is not assigned!");
+            return;
+        }
+
+        if (audioSource == null)
+        {
+            Debug.LogError("AudioSource is not assigned!");
+            return;
+        }
+
+        CreateToggles();
     }
 
-    // Called when a toggle is clicked
-    void OnToggleChanged(Toggle toggle, bool isOn)
+    void CreateToggles()
     {
-        if (isOn)
+        // Clear existing toggles
+        foreach (Transform child in toggleGroupObject.transform)
         {
-            // Get the song index based on the toggle clicked (index should match the order of toggles)
-            int index = toggle.transform.GetSiblingIndex();  // Get the index of the clicked toggle in the hierarchy
-            
-            if (index >= 0 && index < songClips.Count)
+            Destroy(child.gameObject);
+        }
+
+        for (int i = 0; i < songClips.Count; i++)
+        {
+            AudioClip clip = songClips[i];
+            Toggle toggle = Instantiate(togglePrefab, toggleGroupObject.transform);
+            toggle.group = toggleGroup;
+
+            // Set the label text to song name
+            Text label = toggle.GetComponentInChildren<Text>();
+            if (label != null)
+                label.text = clip.name;
+            else
+                Debug.LogWarning("Toggle prefab missing a child Text component for label!");
+
+            int index = i;  // capture loop variable for closure
+            toggle.onValueChanged.AddListener((isOn) =>
             {
-                // Play the selected song
-                PlaySong(songClips[index]);
-            }
+                if (isOn)
+                {
+                    PlaySong(songClips[index]);
+                }
+            });
+
+            if (i == 0)
+                toggle.isOn = true;  // Activate first toggle by default
         }
     }
 
-    // Play the song by setting the AudioClip in the AudioSource and playing it
     void PlaySong(AudioClip clip)
     {
         if (clip != null)
@@ -46,12 +93,5 @@ public class SongSelector : MonoBehaviour
             audioSource.clip = clip;
             audioSource.Play();
         }
-    }
-
-    // Optional: Dynamically load songs using AssetDatabase or Resources
-    List<AudioClip> LoadSongs()
-    {
-        // For example, loading all audio clips in a Resources folder
-        return new List<AudioClip>(Resources.LoadAll<AudioClip>("Songs"));
     }
 }
