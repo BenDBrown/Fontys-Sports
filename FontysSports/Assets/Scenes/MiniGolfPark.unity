@@ -8414,7 +8414,7 @@ PrefabInstance:
       objectReference: {fileID: 1702209499}
     - target: {fileID: 3501996268477701662, guid: 80c88ba82df5fd9428e5a0f2253bfa97, type: 3}
       propertyPath: xrRigSimActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7985017190999010518, guid: 80c88ba82df5fd9428e5a0f2253bfa97, type: 3}
       propertyPath: m_Name
