@@ -1,3 +1,4 @@
+#nullable enable
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR;
@@ -5,21 +6,49 @@ using UnityEngine.XR;
 public class MenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private GameObject gameMenu;
+    [SerializeField] private GameObject? gameMenu;
+    [SerializeField] private GameObject? mainMenu;
+    [SerializeField] private GameObject? gameSelectionMenu;
 
     private bool isPaused = false;
     private bool lastMenuButtonState = false;
     private SceneLoader sceneLoader;
 
+    void Start()
+    {
+        if (pauseMenu == null)
+        {
+            Debug.LogError("Pause menu not assigned. Please assign it in the inspector.");
+            return;
+        }
+
+        pauseMenu.SetActive(false);
+
+        if (gameMenu != null)
+        {
+            gameMenu.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("Game menu not assigned. It will not be toggled.");
+        }
+    }
+
     void Update()
     {
-        // Check Menu button press on the right controller
+        // Check for Escape key press
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePause();
+            return;
+        }
+
+        // Check XR menu button
         var leftHand = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
         bool menuButtonPressed = false;
 
         if (leftHand.TryGetFeatureValue(CommonUsages.menuButton, out menuButtonPressed))
         {
-            // Toggle pause only on button down (not every frame it's held)
             if (menuButtonPressed && !lastMenuButtonState)
             {
                 TogglePause();
@@ -76,5 +105,26 @@ public class MenuManager : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
+    }
+
+    public void SelectionMenu()
+    {
+        if (gameSelectionMenu != null)
+        {
+            gameSelectionMenu.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("Game selection menu not assigned. Please assign it in the inspector.");
+        }
+
+        if (mainMenu != null)
+        {
+            mainMenu.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("Main menu not assigned. It will not be toggled.");
+        }
     }
 }

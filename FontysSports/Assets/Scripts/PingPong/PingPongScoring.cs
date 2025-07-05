@@ -73,7 +73,7 @@ public class PingPongScoring : MonoBehaviour
         }
         else if (player2Score == 11)
         {
-            winnertext.text = "The AI wins!";
+            winnertext.text = "The opponent wins!";
         }
     }
 }

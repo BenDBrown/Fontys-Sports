@@ -359,7 +359,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &9101185184178917102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,6 +390,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player1ScoreDisplay: {fileID: 0}
+  player2ScoreDisplay: {fileID: 0}
+  winnertext: {fileID: 0}
   pingPongBall: {fileID: 0}
   ballResetDelay: 1
 --- !u!1 &6794420197471289377
